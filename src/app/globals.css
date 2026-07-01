@@ -1,26 +1,347 @@
 @import "tailwindcss";
 
+/* =====================================================
+   CLIC&PROGRESS – DESIGN TOKENS
+   Accent:     #FF6500 (Orange Clic&Progress)
+   Hover:      #FF7A1F (Orange clair)
+   Surfaces:   #FFFFFF (Blanc), #FAF8F4 (Crème), #1A1A1A (Noir)
+   Text sec:   #666660 (Gris)
+   ===================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colours */
+  --bg-primary:    #FFFFFF;
+  --bg-creme:      #FAF8F4;
+  --bg-dark:       #1A1A1A;
+  --bg-card:       #FFFFFF;
+  --text-primary:  #1A1A1A;
+  --text-muted:    #666660;
+  --text-bronze:   #666660;
+  --text-light:    #FFFFFF;
+  --accent:        #FF6500;
+  --accent-hover:  #FF7A1F;
+  --accent-glow:   #FF650033;
+  --border:        #E0DDD6;
+  --border-dark:   #333330;
+
+  /* Fonts — injected by next/font/google in layout.tsx */
+  --font-sans:    var(--font-inter, "Inter", sans-serif);
+  --font-display: var(--font-display, "Fraunces", serif);
+
+  /* Spacing */
+  --nav-height: 61px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground:  var(--text-primary);
+  --color-accent:      var(--accent);
+  --color-border:      var(--border);
+  --font-sans:         var(--font-sans);
+  --font-display:      var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =====================================================
+   RESET / BASE
+   ===================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 400;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Navbar links: always white, override body color inheritance */
+header a {
+  color: #FFFFFF;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--accent);
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 12px 24px;
+  white-space: nowrap;
+  transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+  color: #FFFFFF;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn-outline:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+
+.btn-tab {
+  background-color: var(--bg-creme);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out;
+}
+
+.btn-tab.active {
+  background-color: var(--bg-dark);
+  color: #FFFFFF;
+  border-color: var(--bg-dark);
+}
+
+.btn-tab:hover:not(.active) {
+  background-color: #EFECE6;
+}
+
+/* =====================================================
+   TYPOGRAPHY HELPERS
+   ===================================================== */
+
+.label {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-bronze);
+}
+
+.text-accent { color: var(--accent); }
+.text-muted  { color: var(--text-muted); }
+.text-bronze { color: var(--text-bronze); }
+
+/* =====================================================
+   DIVIDERS / BORDERS
+   ===================================================== */
+
+.border-t-subtle {
+  border-top: 1px solid var(--border);
+}
+
+.border-b-subtle {
+  border-bottom: 1px solid var(--border);
+}
+
+/* =====================================================
+   NAV LINK HOVER
+   ===================================================== */
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 32px;
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  overflow: hidden;
+  transition: color 0.2s;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background-color: var(--accent);
+  transition: height 0.15s ease-in-out;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+  height: 3px;
+}
+
+/* =====================================================
+   GLOW EFFECT
+   ===================================================== */
+
+.glow-orb {
+  position: absolute;
+  background: var(--accent-glow);
+  filter: blur(120px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =====================================================
+   SECTION WRAPPER
+   ===================================================== */
+
+.section-pad {
+  padding-left: clamp(24px, 2.22vw, 40px);
+  padding-right: clamp(24px, 2.22vw, 40px);
+}
+
+@media (max-width: 768px) {
+  .section-pad {
+    padding-left: 6.4vw;
+    padding-right: 6.4vw;
+  }
+}
+
+/* =====================================================
+   CARD
+   ===================================================== */
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  transition: border-color 0.3s;
+}
+
+.card:hover {
+  border-color: var(--accent);
+}
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333330;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6500;
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideRight {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease both;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+@keyframes flowLine {
+  0% { stroke-dashoffset: 700; }
+  100% { stroke-dashoffset: -700; }
+}
+
+@keyframes flowLineReverse {
+  0% { stroke-dashoffset: -700; }
+  100% { stroke-dashoffset: 700; }
+}
+
+.animate-flow-line {
+  animation: flowLine 4.8s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 101, 0, 0.55));
+}
+
+.animate-flow-line-reverse {
+  animation: flowLineReverse 4.8s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 101, 0, 0.55));
 }
