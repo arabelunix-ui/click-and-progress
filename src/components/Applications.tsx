@@ -5,49 +5,49 @@ import Link from "next/link";
 
 const DOMAINS = [
   {
-    id: "reconversion",
+    id: "situations-reelles",
     number: "01",
-    label: "Reconversion & Accompagnement",
-    tagline: "Changer de voie et retrouver confiance",
+    label: "On part de tes situations réelles",
+    tagline: "Ancré dans ton quotidien pro",
     description:
-      "Changer de métier ou monter en compétences est un cap décisif. Nous accompagnons les personnes en transition et les structures qui les soutiennent pour donner un nouveau sens à leur parcours.",
-    target: "Personnes en reconversion, secteur Insertion & IAE, bilans de compétences.",
+      "Chaque session s'appuie sur des cas concrets tirés de ton quotidien pro — pas des exemples génériques sortis d'un manuel.",
+    target: "Tous professionnels en activité, salariés, indépendants, équipes.",
     highlights: [
-      "Le déclic psychologique et la levée des freins",
-      "Valorisation des compétences transverses",
-      "Parcours bienveillant et structuré pas à pas",
+      "Cas pratiques issus de ton secteur d'activité",
+      "Zéro théorie hors-sol, 100% applicable dès le lendemain",
+      "Contextualisation personnalisée à chaque apprenant",
     ],
-    image: "/images/clic-reconversion.jpg",
+    image: "/imgs/Gemini_Generated_Image_ (1).png",
   },
   {
-    id: "ia",
+    id: "pratique-immediate",
     number: "02",
-    label: "Intelligence Artificielle",
-    tagline: "L'IA au quotidien, sans être technicien",
+    label: "On pratique tout de suite",
+    tagline: "L'action avant les notes",
     description:
-      "Comprendre et exploiter l'IA générative dans votre métier. Formations 100% concrètes pour automatiser les tâches chronophages et prendre le virage sereinement.",
-    target: "Professionnels, équipes opérationnelles, formateurs.",
+      "Chaque notion, tu la mets en application tout de suite, en atelier, pour ancrer les réflexes plutôt que d'accumuler des notes.",
+    target: "Apprenants qui veulent des résultats concrets, pas des diplômes sur étagère.",
     highlights: [
-      "Maîtrise du prompt engineering appliqué",
-      "Gain de 5h à 10h par semaine",
-      "Démystification complète, zéro prérequis technique",
+      "Ateliers pratiques intégrés à chaque module",
+      "Mise en situation immédiate après chaque apport",
+      "Réflexes durables plutôt que mémorisation passagère",
     ],
-    image: "/images/clic-ai.jpg",
+    image: "/imgs/Gemini_Generated_Image_ (2).png",
   },
   {
-    id: "softskills",
+    id: "mesure-progres",
     number: "03",
-    label: "Commerce, Vente & Soft Skills",
-    tagline: "Relation client et posture d'excellence",
+    label: "On mesure les progrès",
+    tagline: "Un suivi qui te fait avancer",
     description:
-      "Développez votre performance commerciale grâce aux techniques d'aisance relationnelle, d'écoute active et de négociation empathique. Une approche terrain axée sur la confiance.",
-    target: "Équipes commerciales, apprentis BTS MUM / NDRC, TP Conseiller de vente.",
+      "Un suivi personnalisé ajuste le rythme et valorise chaque étape franchie, jusqu'à ce que tu voles de tes propres ailes.",
+    target: "Tous niveaux — du débutant qui doute à l'expert qui veut se dépasser.",
     highlights: [
-      "Mises en situation ludopédagogiques et jeux de rôle",
-      "Gestion des objections et closing naturel",
-      "Développement de l'aisance oratoire et de la posture",
+      "Suivi individuel et ajustement du parcours en temps réel",
+      "Valorisation de chaque étape franchie",
+      "Autonomie progressive jusqu'à l'indépendance complète",
     ],
-    image: "/images/clic-softskills.jpg",
+    image: "/imgs/Gemini_Generated_Image_ (3).png",
   },
 ];
 
@@ -127,8 +127,11 @@ export default function Applications() {
               <img
                 src={d.image}
                 alt={d.label}
+                width={1280}
+                height={720}
                 className="w-full h-full object-cover object-center"
                 style={{
+                  aspectRatio: "16/9",
                   // Subtle parallax: image slightly zoomed and offset
                   transform: `scale(1.06) translateX(${(activeIndex - i) * 4}%)`,
                   transition: "transform 0.9s cubic-bezier(0.25,1,0.5,1), opacity 0.7s ease",

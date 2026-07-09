@@ -1,0 +1,32 @@
+{
+  "status": "success",
+  "isRealApi": true,
+  "source": "python_playwright_scraper",
+  "businessName": "Clic&Progress",
+  "rating": 5.0,
+  "totalUsers": "250+",
+  "scrapedAt": "2026-07-09T16:58:14.905733+00:00",
+  "googleMapsUrl": "https://www.google.com/maps/place/Clic%26Progress",
+  "reviews": [
+    {
+      "id": "real-1",
+      "quote": "Apprendre par le sourire, l’accueil et la bonne humeur. Merci pour vos compétences et votre soutien. Je recommanderai avec plaisir.",
+      "name": "BRUNEL Pascal",
+      "role": "il y a un mois • Avis Google vérifié",
+      "initials": "BP",
+      "color": "#FF6500",
+      "rating": 5,
+      "avatarUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXYSZdOAFnO8GSK42-uPzRFQr8uf6v7X9hlf8_3NPFodUwcFyA=w108-h108-p-rp-mo-br100"
+    },
+    {
+      "id": "real-2",
+      "quote": "Un formateur génial et à l'écoute.  Des savoir-faire techniques et pédagogiques qui vous permettront de gagner en compétences.",
+      "name": "VINCENT FLORENCE",
+      "role": "il y a un mois • Avis Google vérifié",
+      "initials": "VF",
+      "color": "#3B82F6",
+      "rating": 5,
+      "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocJRT4JlHKfC-ARcWR50OoaYkJT79bb9BNMm1rrtLQ4_ENnv9g=w54-h54-p-rp-mo-br100"
+    }
+  ]
+}

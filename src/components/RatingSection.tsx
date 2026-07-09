@@ -1,64 +1,17 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 
-/* ─── Testimonials data ─────────────────────────────────────── */
-const testimonials = [
-  {
-    id: 1,
-    quote:
-      "Clic&Progress a transformé ma façon de gérer mes projets. L'interface est intuitive et les résultats sont immédiats.",
-    name: "Sophie Martin",
-    role: "Directrice Marketing",
-    initials: "SM",
-    color: "#FF6500",
-  },
-  {
-    id: 2,
-    quote:
-      "En tant qu'utilisatrice régulière, je peux affirmer que l'application fonctionne de manière exceptionnelle. Ce qui me distingue vraiment, c'est sa compréhension contextuelle approfondie.",
-    name: "Narsing Abhishek",
-    role: "Consultant Senior",
-    initials: "NA",
-    color: "#3B82F6",
-  },
-  {
-    id: 3,
-    quote:
-      "Avec Clic&Progress, je peux simplement exprimer mes besoins et créer immédiatement une version fonctionnelle que je peux tester et valider sur le marché.",
-    name: "Yinhai Chen",
-    role: "Chef de Produit IA",
-    initials: "YC",
-    color: "#8B5CF6",
-  },
-  {
-    id: 4,
-    quote:
-      "J'ai migré depuis plusieurs autres outils et Clic&Progress gère les specs, les tests et garde une architecture propre automatiquement.",
-    name: "Charly Wargniers",
-    role: "Développeur Full-Stack",
-    initials: "CW",
-    color: "#10B981",
-  },
-  {
-    id: 5,
-    quote:
-      "La fonctionnalité Repo Wiki a résolu mon problème de temps passé à parcourir le code source. Un gain de productivité incroyable.",
-    name: "Lucas Bernard",
-    role: "Blogueur Tech",
-    initials: "LB",
-    color: "#F59E0B",
-  },
-  {
-    id: 6,
-    quote:
-      "Le support client est exceptionnel et l'outil évolue constamment. C'est exactement ce dont mon équipe avait besoin.",
-    name: "Amira Benali",
-    role: "Responsable Innovation",
-    initials: "AB",
-    color: "#EC4899",
-  },
-];
+export interface ReviewItem {
+  id: string | number;
+  quote: string;
+  name: string;
+  role: string;
+  initials: string;
+  color: string;
+  rating?: number;
+  avatarUrl?: string;
+}
 
 /* ─── Star icon ─────────────────────────────────────────────── */
 function StarIcon({ filled = true }: { filled?: boolean }) {
@@ -94,7 +47,7 @@ function Avatar({
         width: size,
         height: size,
         borderRadius: "50%",
-        backgroundColor: color,
+        backgroundColor: color || "#FF6500",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -111,7 +64,7 @@ function Avatar({
 }
 
 /* ─── Testimonial card ──────────────────────────────────────── */
-function TestimonialCard({ t }: { t: (typeof testimonials)[0] }) {
+function TestimonialCard({ t }: { t: ReviewItem }) {
   return (
     <article
       style={{
@@ -158,7 +111,31 @@ function TestimonialCard({ t }: { t: (typeof testimonials)[0] }) {
 
       {/* Author */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        <Avatar initials={t.initials} color={t.color} />
+        {t.avatarUrl ? (
+          <img
+            src={t.avatarUrl}
+            alt={t.name}
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: "50%",
+              objectFit: "cover",
+              border: "1px solid #E0DDD6",
+              flexShrink: 0,
+            }}
+            onError={(e) => {
+              (e.currentTarget as HTMLElement).style.display = "none";
+              const parent = (e.currentTarget as HTMLElement).parentElement;
+              if (parent) {
+                const fb = parent.querySelector(".avatar-fallback") as HTMLElement;
+                if (fb) fb.style.display = "flex";
+              }
+            }}
+          />
+        ) : null}
+        <div className="avatar-fallback" style={{ display: t.avatarUrl ? "none" : "flex" }}>
+          <Avatar initials={t.initials || "G"} color={t.color || "#FF6500"} />
+        </div>
         <div>
           <p style={{ color: "#1A1A1A", fontWeight: 600, fontSize: "0.9rem", margin: 0 }}>
             {t.name}
@@ -177,6 +154,26 @@ export default function RatingSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const isPaused = useRef(false);
   const CARD_WIDTH = 340 + 20; // maxWidth + gap
+
+  const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
+  const [ratingValue, setRatingValue] = useState<number>(5.0);
+  const [totalUsersCount, setTotalUsersCount] = useState<string>("250+");
+  const [isLoadedFromApi, setIsLoadedFromApi] = useState<boolean>(false);
+
+  // Charger exclusivement les avis réels depuis /api/reviews (qui lit public/reviews.json)
+  useEffect(() => {
+    fetch("/api/reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.reviews && Array.isArray(data.reviews)) {
+          setReviewsList(data.reviews);
+          if (data.rating) setRatingValue(Number(data.rating));
+          if (data.totalUsers) setTotalUsersCount(String(data.totalUsers));
+          setIsLoadedFromApi(Boolean(data.isRealApi));
+        }
+      })
+      .catch((err) => console.error("Erreur de chargement des avis API:", err));
+  }, []);
 
   // Manual button scroll
   const scroll = (dir: "left" | "right") => {
@@ -198,7 +195,7 @@ export default function RatingSection() {
   // Infinite loop: when we reach the second copy, jump silently to the first
   useEffect(() => {
     const el = trackRef.current;
-    if (!el) return;
+    if (!el || reviewsList.length === 0) return;
     const handleScroll = () => {
       // half = scrollWidth of one full set of cards
       const half = el.scrollWidth / 2;
@@ -213,7 +210,26 @@ export default function RatingSection() {
     // Start in the middle of the double list so left-scroll also works
     el.scrollLeft = el.scrollWidth / 2;
     return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [reviewsList]);
+
+  // Si en cours de chargement des avis
+  if (reviewsList.length === 0) {
+    return (
+      <section
+        style={{
+          background: "#FFFFFF",
+          padding: "80px 0 72px",
+          textAlign: "center",
+          color: "#666660",
+        }}
+      >
+        Chargement des avis Google Maps...
+      </section>
+    );
+  }
+
+  // Double de la liste pour la boucle infinie fluide
+  const displayList = [...reviewsList, ...reviewsList];
 
   return (
     <section
@@ -253,33 +269,84 @@ export default function RatingSection() {
         <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
           {/* Stacked avatars */}
           <div style={{ display: "flex" }}>
-            {testimonials.slice(0, 4).map((t, i) => (
+            {reviewsList.slice(0, 4).map((t, i) => (
               <div
-                key={t.id}
+                key={`${t.id}-${i}`}
                 style={{
                   marginLeft: i === 0 ? 0 : -10,
                   border: "2px solid #FFFFFF",
                   borderRadius: "50%",
                   zIndex: 4 - i,
                   position: "relative",
+                  overflow: "hidden",
+                  width: 36,
+                  height: 36,
                 }}
               >
-                <Avatar initials={t.initials} color={t.color} size={36} />
+                {t.avatarUrl ? (
+                  <img
+                    src={t.avatarUrl}
+                    alt={t.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLElement).style.display = "none";
+                      const parent = (e.currentTarget as HTMLElement).parentElement;
+                      if (parent) {
+                        const fb = parent.querySelector(".avatar-sm-fb") as HTMLElement;
+                        if (fb) fb.style.display = "flex";
+                      }
+                    }}
+                  />
+                ) : null}
+                <div className="avatar-sm-fb" style={{ display: t.avatarUrl ? "none" : "flex", width: "100%", height: "100%" }}>
+                  <Avatar initials={t.initials || "G"} color={t.color || "#FF6500"} size={36} />
+                </div>
               </div>
             ))}
           </div>
 
           {/* Stars */}
-          <div style={{ display: "flex", gap: 2 }}>
-            {[1, 2, 3, 4, 5].map((s) => (
-              <StarIcon key={s} filled={s <= 4} />
-            ))}
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ display: "flex", gap: 2 }}>
+              {[1, 2, 3, 4, 5].map((s) => (
+                <StarIcon key={s} filled={s <= Math.round(ratingValue)} />
+              ))}
+            </div>
+            <span style={{ fontWeight: 700, color: "#1A1A1A", fontSize: "0.95rem" }}>
+              {Number(ratingValue).toFixed(1)}
+            </span>
           </div>
 
-          {/* User count */}
-          <p style={{ color: "#666660", fontSize: "0.875rem", margin: 0 }}>
-            <strong style={{ color: "#1A1A1A" }}>1 000+</strong> Utilisateurs satisfaits
-          </p>
+          {/* User count + API Badge */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <p style={{ color: "#666660", fontSize: "0.875rem", margin: 0 }}>
+              <strong style={{ color: "#1A1A1A" }}>{totalUsersCount}</strong> Avis et utilisateurs • {reviewsList.length} avis vérifiés Google
+            </p>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 5,
+                background: isLoadedFromApi ? "#ECFDF5" : "#F3F4F6",
+                color: isLoadedFromApi ? "#059669" : "#4B5563",
+                padding: "3px 10px",
+                borderRadius: 99,
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                border: `1px solid ${isLoadedFromApi ? "#A7F3D0" : "#E5E7EB"}`,
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: isLoadedFromApi ? "#10B981" : "#9CA3AF",
+                }}
+              />
+              {isLoadedFromApi ? "API Google Maps Live" : "Avis Google Maps"}
+            </span>
+          </div>
         </div>
 
         {/* Two-column: headline + sub */}
@@ -321,7 +388,7 @@ export default function RatingSection() {
               marginTop: 8,
             }}
           >
-            Retours réels d&apos;utilisateurs Clic&amp;Progress du monde entier.
+            Retours réels d&apos;utilisateurs Clic&amp;Progress du monde entier sur Google Maps.
           </p>
         </div>
       </div>
@@ -369,11 +436,9 @@ export default function RatingSection() {
             paddingRight: "clamp(24px, 4vw, 80px)",
             paddingBottom: 8,
           }}
-          // hide scrollbar on WebKit
           className="rating-track"
         >
-          {/* Double the list for seamless infinite loop */}
-          {[...testimonials, ...testimonials].map((t, i) => (
+          {displayList.map((t, i) => (
             <TestimonialCard key={`${t.id}-${i}`} t={t} />
           ))}
         </div>

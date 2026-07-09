@@ -12,6 +12,8 @@ import RatingSection from "@/components/RatingSection";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
+import VideoSection from "@/components/VideoSection";
+import LogosCarousel from "@/components/LogosCarousel";
 
 export default function Home() {
   return (
@@ -25,6 +27,9 @@ export default function Home() {
       <main id="main-content">
         {/* 2. Full-viewport hero */}
         <LandingSection />
+
+        {/* 2b. Ils m'ont fait confiance — Logos Carousel
+        <LogosCarousel /> */}
 
         {/* 3. Three feature bullets */}
         <FeaturesStrip />
@@ -46,8 +51,11 @@ export default function Home() {
           {/* 7. Mission statement (light background) */}
           <MissionStatement />
 
-          {/* 8. Three benefits: Your Metal / Your Independence / Your World */}
-          <ThreeBenefits />
+          {/* 7b. YouTube Video section */}
+          <VideoSection />
+
+          {/* 8. Three benefits: Your Metal / Your Independence / Your World
+          <ThreeBenefits /> */}
 
           {/* 9. Latest news articles */}
           <NewsSection />
