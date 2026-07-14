@@ -28,17 +28,14 @@ export default function Home() {
         {/* 2. Full-viewport hero */}
         <LandingSection />
 
-        {/* 2b. Ils m'ont fait confiance — Logos Carousel
-        <LogosCarousel /> */}
-
+        
         {/* 3. Three feature bullets */}
         <FeaturesStrip />
 
         {/* 3b. Landing / hero section with CTA and portrait */}
         
 
-        {/* 4. Tabbed applications — sticky horizontal scroll */}
-        <Applications />
+       
 
         {/* Sections below slide UP over Applications as you scroll past it */}
         <div className="relative" style={{ zIndex: 20 }}>
@@ -52,10 +49,14 @@ export default function Home() {
           <MissionStatement />
 
           {/* 7b. YouTube Video section */}
-          <VideoSection />
+          
 
           {/* 8. Three benefits: Your Metal / Your Independence / Your World
           <ThreeBenefits /> */}
+
+          {/* 2b. Ils m'ont fait confiance — Grille de logos architecturale */}
+        <LogosCarousel />
+
 
           {/* 9. Latest news articles */}
           <NewsSection />

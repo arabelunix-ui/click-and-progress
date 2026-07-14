@@ -233,6 +233,7 @@ export default function RatingSection() {
 
   return (
     <section
+      id="avis"
       style={{
         background: "#FFFFFF",
         padding: "80px 0 72px",

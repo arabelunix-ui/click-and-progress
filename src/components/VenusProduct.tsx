@@ -2,25 +2,32 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const STEPS = [
   {
     number: "01",
-    title: "Le Cap que l'on franchit",
+    title: "On part de tes situations réelles",
     description:
-      "Une progression étape par étape pour lever les doutes et passer à l'action en toute sérénité. Chaque formation est construite comme un parcours, pas comme un contenu à avaler. Vous avancez à votre rythme, solidement accompagné.",
+      "Chaque session s'appuie sur des cas concrets tirés de ton quotidien pro — pas des exemples génériques sortis d'un manuel.",
+    image: "/methods/methode-equipe.png",
+    imageAlt: "Méthode équipe - situations réelles",
   },
   {
     number: "02",
-    title: "Le Déclic par la Ludopédagogie",
+    title: "On pratique tout de suite",
     description:
-      "On apprend en faisant, à travers des cas réels, des jeux de rôle vivants et des simulations immersives. La théorie ne vient qu'après la pratique — jamais avant. Parce que l'engagement naît de l'action, pas de la lecture.",
+      "Chaque notion, tu la mets en application tout de suite, en atelier, pour ancrer les réflexes plutôt que d'accumuler des notes.",
+    image: "/methods/methode-tableau.png",
+    imageAlt: "Méthode tableau - pratique en atelier",
   },
   {
     number: "03",
-    title: "L'Application Immédiate",
+    title: "On mesure les progrès",
     description:
-      "Rien d'académique ou d'abstrait : vos nouveaux réflexes s'appliquent directement à votre poste de travail dès le lendemain de la session. Ce que vous apprenez sert le jour même — c'est notre seul critère de réussite.",
+      "Un suivi personnalisé ajuste le rythme et valorise chaque étape franchie, jusqu'à ce que tu voles de tes propres ailes.",
+    image: "/methods/methode-suivi.png",
+    imageAlt: "Méthode suivi - mesure des progrès",
   },
 ];
 
@@ -80,7 +87,7 @@ export default function VenusProduct() {
         {STEPS.map((step, i) => (
           <div
             key={step.number}
-            className={`sticky w-full rounded-3xl overflow-hidden transition-all duration-500 ${
+            className={`group sticky w-full rounded-3xl overflow-hidden transition-all duration-500 ${
               i !== STEPS.length - 1 ? "mb-[32vh]" : "mb-12"
             }`}
             style={{
@@ -91,57 +98,76 @@ export default function VenusProduct() {
               boxShadow: i > 0 ? "0 -25px 60px rgba(0, 0, 0, 0.95)" : "0 10px 40px rgba(0, 0, 0, 0.4)",
             }}
           >
-            {/* Two-column layout */}
-            <div
-              className="grid"
-              style={{ gridTemplateColumns: "1fr 1px 1.5fr" }}
-            >
-              {/* Left: solid luxury serif number like n1/2.png */}
-              <div
-                className="flex items-center justify-center"
-                style={{
-                  minHeight: "clamp(240px, 40vh, 420px)",
-                  padding: "clamp(2.5rem, 6vw, 6rem)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-display, Fraunces, serif)",
-                    fontSize: "clamp(6.5rem, 14vw, 12rem)",
-                    fontWeight: 400,
-                    color: "#FF6500", // Brand color Clic&Progress
-                    lineHeight: 1,
-                    letterSpacing: "-0.03em",
-                    userSelect: "none",
-                  }}
-                >
-                  {step.number}
-                </span>
+            {/* Two-column responsive layout with image on left & description on right */}
+            <div className="grid grid-cols-1 lg:grid-cols-[5fr_1px_7fr] items-stretch">
+              {/* Left: Image & Number */}
+              <div className="relative overflow-hidden min-h-[320px] sm:min-h-[380px] lg:min-h-[480px] flex flex-col justify-between p-6 sm:p-10">
+                {/* Background Image with zoom on hover */}
+                <Image
+                  src={step.image}
+                  alt={step.imageAlt}
+                  fill
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+
+                {/* Dark gradient overlays for luxury contrast and text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#161513] via-[#161513]/60 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-[#161513]/40 lg:to-[#161513] pointer-events-none" />
+                <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
+                {/* Step Number Badge */}
+                <div className="relative z-10 flex items-center justify-between w-full">
+                  <span className="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest bg-black/60 backdrop-blur-md border border-white/10 text-[#FF6500]">
+                    Étape {step.number}
+                  </span>
+                </div>
+
+                {/* Large Serif Number */}
+                <div className="relative z-10 mt-auto pt-12">
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display, Fraunces, serif)",
+                      fontSize: "clamp(4.5rem, 8vw, 7.5rem)",
+                      fontWeight: 400,
+                      color: "rgba(255, 255, 255, 0.9)",
+                      lineHeight: 0.9,
+                      letterSpacing: "-0.04em",
+                      textShadow: "0 4px 20px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    {step.number}
+                    <span className="text-[#FF6500] text-4xl align-top font-sans">.</span>
+                  </span>
+                </div>
               </div>
 
-              {/* Vertical divider */}
-              <div style={{ backgroundColor: "rgba(255, 255, 255, 0.08)" }} />
+              {/* Vertical divider on Desktop */}
+              <div className="hidden lg:block w-[1px] bg-white/[0.08]" />
 
-              {/* Right: clean title and description */}
-              <div
-                className="flex flex-col justify-center"
-                style={{ padding: "clamp(2.5rem, 6vw, 6rem)" }}
-              >
+              {/* Right: Title & Description */}
+              <div className="relative z-10 flex flex-col justify-center p-8 sm:p-12 lg:p-16 xl:p-20">
+                {/* Subtle Step Label */}
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="w-8 h-[1px] bg-[#FF6500]" />
+                  <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#FF6500]">
+                    Notre Approche {step.number}
+                  </span>
+                </div>
+
                 <h3
-                  className="text-white font-normal mb-5 leading-tight"
+                  className="text-white font-normal mb-6 leading-[1.1]"
                   style={{
                     fontFamily: "var(--font-display, Fraunces, serif)",
-                    fontSize: "clamp(1.8rem, 3.2vw, 3rem)",
+                    fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
                   }}
                 >
                   {step.title}
                 </h3>
 
                 <p
-                  className="leading-relaxed font-sans"
+                  className="leading-relaxed font-sans text-white/70"
                   style={{
-                    color: "rgba(255, 255, 255, 0.65)",
-                    fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)",
+                    fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
                     maxWidth: "54ch",
                   }}
                 >
@@ -153,10 +179,10 @@ export default function VenusProduct() {
                   <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
                     <Link
                       href="#contact"
-                      className="group inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(255,101,0,0.4)] hover:shadow-[0_6px_28px_rgba(255,101,0,0.6)]"
+                      className="group/btn inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(255,101,0,0.4)] hover:shadow-[0_6px_28px_rgba(255,101,0,0.6)]"
                     >
                       <span>Échanger sur votre projet</span>
-                      <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform text-sm">→</span>
+                      <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 transition-transform text-sm">→</span>
                     </Link>
                     <span className="text-xs text-white/40 font-mono uppercase tracking-widest">
                       Clermont-Ferrand &amp; France · &lt; 48h de réponse
@@ -171,3 +197,4 @@ export default function VenusProduct() {
     </section>
   );
 }
+

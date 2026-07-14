@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export default function NewsSection() {
   const articles = [
     {
       number: "01",
+      slug: "ia-generative-equipes-operationnelles",
       category: "IA & Productivité",
       title: "Comment l'IA générative transforme le quotidien des équipes opérationnelles",
       desc: "Découvrez pourquoi l'intégration de ChatGPT et Claude au travail ne nécessite aucun bagage technique pour faire gagner 5h par semaine à vos collaborateurs tout en renforçant leur créativité.",
@@ -16,6 +18,7 @@ export default function NewsSection() {
     },
     {
       number: "02",
+      slug: "reussir-transition-professionnelle",
       category: "Reconversion & Mindset",
       title: "Franchir le cap : réussir sa transition professionnelle sans perdre confiance",
       desc: "Les 4 étapes psychologiques et méthodologiques pour donner un nouvel élan à son parcours de carrière, surmonter le syndrome de l'imposteur et s'adapter aux nouveaux métiers.",
@@ -25,6 +28,7 @@ export default function NewsSection() {
     },
     {
       number: "03",
+      slug: "apprendre-en-faisant-ludopedagogie",
       category: "Ludopédagogie",
       title: "Pourquoi on apprend 5 fois mieux en faisant (le secret de la pratique)",
       desc: "Analyse comparative des formations descendantes classiques face aux ateliers actifs de mise en situation concrète. L'ancrage mémoriel expliqué par les neurosciences.",
@@ -37,7 +41,7 @@ export default function NewsSection() {
   const [activeIdx, setActiveIdx] = useState<number | null>(0);
 
   return (
-    <section className="bg-[#141311] py-24 sm:py-32 border-b border-white/10 text-white">
+    <section id="ressources" className="bg-[#141311] py-24 sm:py-32 border-b border-white/10 text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -147,10 +151,14 @@ export default function NewsSection() {
                         </div>
 
                         <div className="md:col-span-4 flex justify-start md:justify-end">
-                          <button className="px-6 py-3.5 rounded-xl bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,101,0,0.3)] flex items-center gap-2.5 group">
+                          <Link
+                            href={`/blog/${art.slug}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="px-6 py-3.5 rounded-xl bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,101,0,0.3)] flex items-center gap-2.5 group"
+                          >
                             <span>Lire l&apos;article complet</span>
                             <span className="group-hover:translate-x-1 transition-transform">→</span>
-                          </button>
+                          </Link>
                         </div>
 
                       </div>
@@ -161,6 +169,19 @@ export default function NewsSection() {
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Bouton "Voir tous les articles" */}
+        <div className="mt-14 flex justify-center">
+          <Link
+            href="/blog"
+            className="px-8 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#FF6500]/60 text-white font-semibold text-sm sm:text-base transition-all duration-300 flex items-center gap-3 group shadow-lg hover:shadow-[0_0_25px_rgba(255,101,0,0.25)]"
+          >
+            <span>Voir tous les articles du blog</span>
+            <span className="w-8 h-8 rounded-full bg-[#FF6500]/20 text-[#FF6500] group-hover:bg-[#FF6500] group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
         </div>
 
       </div>
