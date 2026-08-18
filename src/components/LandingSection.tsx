@@ -519,9 +519,7 @@ export default function LandingSection() {
 
             {/* Description */}
             <p className="landing-desc">
-              Reconversion, IA générative au quotidien, posture commerciale qui
-              convertit&nbsp;: tu progresses en faisant, pas en écoutant un cours de
-              plus. Et ce que tu apprends aujourd'hui, tu l'utilises dès demain.
+              Des formations conçues pour transformer l’apprentissage en action. Vous progressez avec une approche claire, pratique et directement applicable à vos enjeux.
             </p>
 
             {/* CTA buttons */}

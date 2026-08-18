@@ -51,8 +51,6 @@ export default function Home() {
           {/* 7b. YouTube Video section */}
           
 
-          {/* 8. Three benefits: Your Metal / Your Independence / Your World
-          <ThreeBenefits /> */}
 
           {/* 2b. Ils m'ont fait confiance — Grille de logos architecturale */}
         <LogosCarousel />

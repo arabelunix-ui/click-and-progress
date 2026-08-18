@@ -36,13 +36,13 @@ export default function Navbar() {
   }, []);
 
   const leftLinks = [
-    { name: "L'Entreprise", href: "/#entreprise", id: "entreprise" },
-    { name: "Pédagogie", href: "/#pedagogie", id: "pedagogie" },
-    { name: "FAQ", href: "/faq", id: "faq" },
+    { name: "Formations", href: "/#formations", id: "formations" },
+    { name: "Méthode", href: "/#methode", id: "methode" },
+    { name: "Publics", href: "/#publics", id: "publics" },
   ];
 
   const rightLinks = [
-    { name: "Ressources", href: "/#ressources", id: "ressources" },
+    { name: "Blog", href: "/blog", id: "blog" },
     { name: "À propos", href: "/about", id: "about" },
     { name: "Contact", href: "/#contact", id: "contact" },
   ];
@@ -53,7 +53,7 @@ export default function Navbar() {
         className={`sticky top-0 z-50 transition-all duration-500 ${
           visible ? "translate-y-0" : "-translate-y-full"
         } ${
-          scrolled || pathname === "/about" || pathname === "/faq"
+          scrolled || pathname === "/about" || pathname === "/blog"
             ? "bg-[#1A1A1A]/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
             : "bg-[#1A1A1A]"
         }`}
@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* LEFT NAV LINKS */}
           <nav className="hidden lg:flex items-stretch">
             {leftLinks.map((item) => {
-              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/faq"));
+              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/blog"));
               return (
                 <Link
                   key={item.id}
@@ -104,7 +104,7 @@ export default function Navbar() {
           {/* RIGHT NAV LINKS */}
           <nav className="hidden lg:flex items-stretch">
             {rightLinks.map((item) => {
-              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/faq"));
+              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/blog"));
               return (
                 <Link
                   key={item.id}
@@ -154,7 +154,7 @@ export default function Navbar() {
         >
           <div className="flex flex-col divide-y divide-white/8">
             {[...leftLinks, ...rightLinks].map((item) => {
-              const isItemActive = pathname === item.href && (item.href === "/about" || item.href === "/faq");
+              const isItemActive = pathname === item.href && (item.href === "/about" || item.href === "/blog");
               return (
                 <Link
                   key={item.id}

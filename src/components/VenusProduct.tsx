@@ -7,9 +7,9 @@ import Image from "next/image";
 const STEPS = [
   {
     number: "01",
-    title: "On part de tes situations réelles",
+    title: "On part de vos situations réelles",
     description:
-      "Chaque session s'appuie sur des cas concrets tirés de ton quotidien pro — pas des exemples génériques sortis d'un manuel.",
+      "Chaque session s’appuie sur des cas concrets issus de votre quotidien professionnel, et non sur des exemples génériques déconnectés du terrain.",
     image: "/methods/methode-equipe.png",
     imageAlt: "Méthode équipe - situations réelles",
   },
@@ -17,7 +17,7 @@ const STEPS = [
     number: "02",
     title: "On pratique tout de suite",
     description:
-      "Chaque notion, tu la mets en application tout de suite, en atelier, pour ancrer les réflexes plutôt que d'accumuler des notes.",
+      "Chaque notion est mise en application immédiatement, à travers des exercices, des échanges ou des ateliers, pour ancrer les apprentissages durablement.",
     image: "/methods/methode-tableau.png",
     imageAlt: "Méthode tableau - pratique en atelier",
   },
@@ -25,7 +25,7 @@ const STEPS = [
     number: "03",
     title: "On mesure les progrès",
     description:
-      "Un suivi personnalisé ajuste le rythme et valorise chaque étape franchie, jusqu'à ce que tu voles de tes propres ailes.",
+      "Un suivi personnalisé permet d’ajuster le rythme, de valoriser chaque étape franchie et de consolider les compétences dans la durée.",
     image: "/methods/methode-suivi.png",
     imageAlt: "Méthode suivi - mesure des progrès",
   },
@@ -74,10 +74,10 @@ export default function VenusProduct() {
             className="mt-8 max-w-[54ch] leading-relaxed text-base sm:text-lg"
             style={{ color: "rgba(255,255,255,0.48)" }}
           >
-            Trop de formations vous placent en spectateur passif. Chez{" "}
-            <strong style={{ color: "rgba(255,255,255,0.75)" }}>Clic&amp;Progress</strong>,
-            tout tourne autour d&apos;un seul objectif : provoquer{" "}
-            <strong style={{ color: "#FF6500" }}>le déclic</strong>.
+            Trop de formations vous placent en spectateur. Chez{" "}
+            <strong style={{ color: "rgba(255,255,255,0.75)" }}>Click&amp;Progress</strong>,
+            notre objectif est simple : provoquer{" "}
+            <strong style={{ color: "#FF6500" }}>le déclic</strong> et vous mettre en action.
           </p>
         </div>
       </div>

@@ -6,21 +6,21 @@ export default function FeaturesStrip() {
   const features = [
     {
       number: "01",
-      title: "Pédagogie Active (Ludopédagogie)",
+      title: "Pédagogie active",
       description:
-        "Finies les formations subies en descendant. Ici on apprend en faisant, en échangeant, et en expérimentant concrètement.",
+        "Vous apprenez en faisant.\nChaque formation est pensée pour favoriser la participation, l’échange et la mise en pratique, afin d’ancrer durablement les apprentissages.",
     },
     {
       number: "02",
-      title: "Applicabilité Immédiate",
+      title: "Mise en pratique immédiate",
       description:
-        "Chaque module est conçu pour le réel : ce que vous apprenez aujourd'hui vous fait gagner du temps et de l'efficacité dès le lendemain.",
+        "Des contenus utiles dès le lendemain.\nChaque module est conçu pour répondre à des situations concrètes, avec des outils et des méthodes directement applicables à vos enjeux.",
     },
     {
       number: "03",
-      title: "Accompagnement Humain",
+      title: "Un accompagnement humain",
       description:
-        "Un suivi direct avec Soufiyan, formateur indépendant basé à Clermont-Ferrand, sans intermédiaire ni jargon technique.",
+        "Chaque parcours s’appuie sur une relation de proximité.\nVous bénéficiez d’un suivi direct et d’une communication claire à chaque étape.",
     },
   ];
 
@@ -45,7 +45,7 @@ export default function FeaturesStrip() {
               >
                 {item.title}
               </h3>
-              <p className="text-sm text-[#666660] leading-relaxed font-sans">
+              <p className="text-sm text-[#666660] leading-relaxed font-sans whitespace-pre-line">
                 {item.description}
               </p>
             </div>

@@ -27,6 +27,7 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
+  
   // Rafraîchir le token d'authentification s'il est expiré
   await supabase.auth.getUser();
 
