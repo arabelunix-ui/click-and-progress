@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 
+export const dynamic = 'force-dynamic';
+
 const BLOB_FILENAME = "formations.json";
 
 // Default initial data mapping to what we had in FormationsList

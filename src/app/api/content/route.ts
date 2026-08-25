@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 
+export const dynamic = 'force-dynamic';
+
 const BLOB_FILENAME = "content.json";
 
 async function getRemoteData() {
