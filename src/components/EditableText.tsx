@@ -5,9 +5,12 @@ import { Pencil, Check, X, RotateCcw } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 let contentCachePromise: Promise<Record<string, string>> | null = null;
+let lastFetchTime = 0;
 
-function fetchContent() {
-  if (!contentCachePromise) {
+function fetchContent(force = false) {
+  const now = Date.now();
+  if (!contentCachePromise || force || now - lastFetchTime > 5000) {
+    lastFetchTime = now;
     contentCachePromise = fetch("/api/content", { cache: "no-store" })
       .then((res) => res.json())
       .catch(() => ({}));

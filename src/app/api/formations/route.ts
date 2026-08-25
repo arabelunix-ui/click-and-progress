@@ -19,11 +19,12 @@ const INITIAL_DATA = [
 
 async function getRemoteData() {
   try {
-    const { blobs } = await list({ prefix: BLOB_FILENAME });
-    const blob = blobs.find(b => b.pathname === BLOB_FILENAME);
-    
-    if (blob) {
-      const response = await fetch(`${blob.url}?t=${Date.now()}`, { cache: "no-store" });
+    const { blobs } = await list({ prefix: "formations-" });
+    if (blobs.length > 0) {
+      // Sort by uploadedAt descending
+      blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime());
+      const latestBlob = blobs[0];
+      const response = await fetch(`${latestBlob.url}?t=${Date.now()}`, { cache: "no-store" });
       return await response.json();
     }
   } catch (e) {
@@ -33,7 +34,11 @@ async function getRemoteData() {
 }
 
 async function saveRemoteData(data: any) {
-  await put(BLOB_FILENAME, JSON.stringify(data, null, 2), { 
+  const timestamp = Date.now();
+  const filename = `formations-${timestamp}.json`;
+  
+  // Upload the new file
+  await put(filename, JSON.stringify(data, null, 2), { 
     access: "public", 
     addRandomSuffix: false 
   });
