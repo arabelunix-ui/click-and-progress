@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import EditableText from "./EditableText";
 
 const STEPS = [
   {
@@ -51,7 +52,7 @@ export default function VenusProduct() {
 
         {/* Top badge */}
         <span className="relative z-10 text-[11px] font-mono uppercase tracking-[0.22em] text-[#FF6500] mb-8">
-          03 — Notre Pédagogie
+          <EditableText initialText="03 — Notre Pédagogie" />
         </span>
 
         {/* Centered title */}
@@ -70,15 +71,12 @@ export default function VenusProduct() {
           </h2>
 
           {/* Centered description underneath */}
-          <p
-            className="mt-8 max-w-[54ch] leading-relaxed text-base sm:text-lg"
-            style={{ color: "rgba(255,255,255,0.48)" }}
-          >
-            Trop de formations vous placent en spectateur. Chez{" "}
-            <strong style={{ color: "rgba(255,255,255,0.75)" }}>Click&amp;Progress</strong>,
-            notre objectif est simple : provoquer{" "}
-            <strong style={{ color: "#FF6500" }}>le déclic</strong> et vous mettre en action.
-          </p>
+          <EditableText
+            as="p"
+            className="mt-8 max-w-[54ch] leading-relaxed text-base sm:text-lg text-white/50"
+            multiline
+            initialText="Trop de formations vous placent en spectateur. Chez Click&Progress, notre objectif est simple : provoquer le déclic et vous mettre en action."
+          />
         </div>
       </div>
 
@@ -150,29 +148,36 @@ export default function VenusProduct() {
                 <div className="flex items-center gap-3 mb-6">
                   <span className="w-8 h-[1px] bg-[#FF6500]" />
                   <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#FF6500]">
-                    Notre Approche {step.number}
+                    <EditableText initialText={`Notre Approche ${step.number}`} />
                   </span>
                 </div>
 
-                <h3
-                  className="text-white font-normal mb-6 leading-[1.1]"
+                <div
                   style={{
                     fontFamily: "var(--font-display, Fraunces, serif)",
                     fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
                   }}
                 >
-                  {step.title}
-                </h3>
+                  <EditableText
+                    as="h3"
+                    className="text-white font-normal mb-6 leading-[1.1] block"
+                    initialText={step.title}
+                  />
+                </div>
 
-                <p
-                  className="leading-relaxed font-sans text-white/70"
+                <div
                   style={{
                     fontSize: "clamp(1.05rem, 1.4vw, 1.25rem)",
                     maxWidth: "54ch",
                   }}
                 >
-                  {step.description}
-                </p>
+                  <EditableText
+                    as="p"
+                    multiline
+                    className="leading-relaxed font-sans text-white/70 block"
+                    initialText={step.description}
+                  />
+                </div>
 
                 {/* CTA on last card */}
                 {i === STEPS.length - 1 && (
@@ -181,11 +186,11 @@ export default function VenusProduct() {
                       href="#contact"
                       className="group/btn inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(255,101,0,0.4)] hover:shadow-[0_6px_28px_rgba(255,101,0,0.6)]"
                     >
-                      <span>Échanger sur votre projet</span>
+                      <EditableText initialText="Échanger sur votre projet" />
                       <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 transition-transform text-sm">→</span>
                     </Link>
                     <span className="text-xs text-white/40 font-mono uppercase tracking-widest">
-                      Clermont-Ferrand &amp; France · &lt; 48h de réponse
+                      <EditableText initialText="Clermont-Ferrand & France · < 48h de réponse" />
                     </span>
                   </div>
                 )}

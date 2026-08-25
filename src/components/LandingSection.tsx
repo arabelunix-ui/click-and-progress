@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import EditableText from "./EditableText";
 
 /* ─────────────────────────────────────────────
    Animated counter hook
@@ -40,9 +41,9 @@ function Stat({ value, suffix, label, started }: StatProps) {
     <div className="landing-stat">
       <span className="landing-stat__number">
         {count}
-        <span className="landing-stat__suffix">{suffix}</span>
+        <EditableText as="span" className="landing-stat__suffix block" initialText={suffix} />
       </span>
-      <span className="landing-stat__label">{label}</span>
+      <EditableText as="span" className="landing-stat__label block" initialText={label} />
     </div>
   );
 }
@@ -507,31 +508,37 @@ export default function LandingSection() {
             {/* Eyebrow badge */}
             <span className="landing-badge">
               <span className="landing-badge__star" aria-hidden="true">✦</span>
-              Formations en ligne
+              <EditableText initialText="Formations en ligne" />
             </span>
 
             {/* Headline */}
             <h2 className="landing-headline" id="landing-headline">
-              Apprendre, ça doit<br />
-              donner{" "}
-              <span className="landing-headline__accent">ENVIE.</span>
+              <EditableText initialText="Apprendre, ça doit" />
+              <br />
+              <EditableText initialText="donner " />
+              <span className="landing-headline__accent">
+                <EditableText initialText="ENVIE." />
+              </span>
             </h2>
 
             {/* Description */}
-            <p className="landing-desc">
-              Des formations conçues pour transformer l’apprentissage en action. Vous progressez avec une approche claire, pratique et directement applicable à vos enjeux.
-            </p>
+            <EditableText 
+              as="p" 
+              className="landing-desc block" 
+              multiline 
+              initialText="Des formations conçues pour transformer l’apprentissage en action. Vous progressez avec une approche claire, pratique et directement applicable à vos enjeux." 
+            />
 
             {/* CTA buttons */}
             <div className="landing-cta">
               <Link href="#formations" className="landing-cta__primary">
-                Découvre les formations
+                <EditableText initialText="Découvre les formations" />
               </Link>
               <Link href="#echange" className="landing-cta__secondary">
-                Réserve ton échange
+                <EditableText initialText="Réserve ton échange" />
               </Link>
               <span className="landing-cta__caption">
-                20 minutes, gratuites, pour cadrer ton besoin ensemble — sans engagement.
+                <EditableText initialText="20 minutes, gratuites, pour cadrer ton besoin ensemble — sans engagement." />
               </span>
             </div>
 

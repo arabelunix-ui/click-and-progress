@@ -14,10 +14,12 @@ import {
   Globe,
   ChevronLeft,
   ChevronRight,
+  Pencil,
 } from "lucide-react";
 
 const NAV = [
   { href: "/admin", label: "Vue d'ensemble", icon: LayoutDashboard },
+  { href: "/admin/edit", label: "Éditeur Visuel", icon: Pencil },
   { href: "/admin/formations", label: "Formations", icon: GraduationCap },
   { href: "/admin/avis", label: "Avis & Témoignages", icon: Star },
   { href: "/admin/partenaires", label: "Partenaires", icon: Handshake },

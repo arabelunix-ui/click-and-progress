@@ -1,0 +1,46 @@
+[
+  {
+    "id": 5,
+    "slug": "tp-conseiller-commercial",
+    "level": "N4",
+    "titre": "TP Conseiller Commercial",
+    "categorie": "Commerce",
+    "duree": "1 an",
+    "public": "Tous",
+    "statut": "Actif",
+    "inscrits": 0
+  },
+  {
+    "id": 6,
+    "slug": "tp-negociateur-technico-commercial",
+    "level": "N5",
+    "titre": "TP Négociateur Technico-Commercial",
+    "categorie": "Commerce",
+    "duree": "1 an",
+    "public": "Tous",
+    "statut": "Actif",
+    "inscrits": 0
+  },
+  {
+    "id": 7,
+    "slug": "bachelor-management-gestion-entreprises",
+    "level": "N6",
+    "titre": "Bachelor Management & Gestion des Entreprises",
+    "categorie": "Commerce",
+    "duree": "1 an",
+    "public": "Tous",
+    "statut": "Actif",
+    "inscrits": 0
+  },
+  {
+    "id": 8,
+    "slug": "bachelor-responsable-developpement-commercial",
+    "level": "N6",
+    "titre": "Bachelor Responsable du Développement Commercial",
+    "categorie": "Commerce",
+    "duree": "1 an",
+    "public": "Tous",
+    "statut": "Actif",
+    "inscrits": 0
+  }
+]

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import EditableText from "./EditableText";
 
 export default function Briquettes() {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -41,18 +42,18 @@ export default function Briquettes() {
             
             {/* Top Title Block */}
             <div className="p-8 sm:p-12 border-b border-neutral-200/80 bg-white">
-              <h2
-                className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A]"
+              <EditableText
+                as="h2"
+                className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A] block"
                 style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              >
-                Clic&amp;Progress
-              </h2>
-              <p
-                className="text-2xl sm:text-3xl md:text-4xl font-normal text-neutral-400 mt-1"
+                initialText="Clic&Progress"
+              />
+              <EditableText
+                as="p"
+                className="text-2xl sm:text-3xl md:text-4xl font-normal text-neutral-400 mt-1 block"
                 style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              >
-                Publics &amp; Solutions
-              </p>
+                initialText="Publics & Solutions"
+              />
             </div>
 
             {/* Accordion List */}
@@ -74,7 +75,7 @@ export default function Briquettes() {
                         isActive ? "text-[#1A1A1A] font-medium" : "text-neutral-400 hover:text-neutral-700"
                       }`}
                     >
-                      {ch.title}
+                      <EditableText initialText={ch.title} />
                     </span>
                     <span
                       className={`text-2xl font-light transition-colors ${
@@ -106,23 +107,26 @@ export default function Briquettes() {
             {/* Content Display */}
             <div className="relative z-20 max-w-xl">
               <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#FF6500] mb-4">
-                {activeChannel.tag}
+                <EditableText initialText={activeChannel.tag} />
               </span>
-              <h3
-                className="text-2xl sm:text-4xl font-bold text-[#1A1A1A] mb-5 leading-tight"
+              <EditableText
+                as="h3"
+                className="text-2xl sm:text-4xl font-bold text-[#1A1A1A] mb-5 leading-tight block"
                 style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              >
-                {activeChannel.subtitle}
-              </h3>
-              <p className="text-base sm:text-lg text-[#666660] font-sans leading-relaxed mb-8">
-                {activeChannel.desc}
-              </p>
+                initialText={activeChannel.subtitle}
+              />
+              <EditableText
+                as="p"
+                multiline
+                className="text-base sm:text-lg text-[#666660] font-sans leading-relaxed mb-8 block"
+                initialText={activeChannel.desc}
+              />
 
               <Link
                 href="#contact"
                 className="group inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(255,101,0,0.2)] hover:shadow-[0_6px_28px_rgba(255,101,0,0.4)]"
               >
-                <span>Échanger sur ce format</span>
+                <EditableText initialText="Échanger sur ce format" />
                 <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform text-sm">→</span>
               </Link>
             </div>
@@ -133,14 +137,23 @@ export default function Briquettes() {
         {/* Reassurance Banner */}
         <div className="mt-16 rounded-3xl bg-[#1A1A1A] text-white p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
           <div>
-            <h3 className="text-2xl font-bold font-display mb-2">Un projet spécifique ou un cahier des charges ?</h3>
-            <p className="text-sm text-neutral-300">Soufiyan étudie votre demande de formation et vous propose une ingénierie sur mesure sous 48h.</p>
+            <EditableText
+              as="h3"
+              className="text-2xl font-bold font-display mb-2 block"
+              initialText="Un projet spécifique ou un cahier des charges ?"
+            />
+            <EditableText
+              as="p"
+              multiline
+              className="text-sm text-neutral-300 block"
+              initialText="Soufiyan étudie votre demande de formation et vous propose une ingénierie sur mesure sous 48h."
+            />
           </div>
           <Link
             href="#contact"
             className="flex-shrink-0 px-8 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-lg"
           >
-            Contacter Soufiyan
+            <EditableText initialText="Contacter Soufiyan" />
           </Link>
         </div>
 

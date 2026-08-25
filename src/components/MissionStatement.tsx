@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import EditableText from "./EditableText";
 
 export default function MissionStatement() {
   return (
@@ -20,29 +21,32 @@ export default function MissionStatement() {
 
           <div className="relative z-10 max-w-4xl mx-auto">
             <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#FF6500] mb-6">
-              01 — L&apos;ENTREPRISE
+              <EditableText initialText="01 — L'ENTREPRISE" />
             </span>
-            <h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-8"
+            <EditableText
+              as="h2"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-8 block"
               style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-            >
-              &ldquo;Apprendre, ça doit donner envie.&rdquo;
-            </h2>
-            <p className="text-lg sm:text-xl text-white/75 font-sans leading-relaxed max-w-3xl mx-auto mb-12">
-              Clic&amp;Progress est l&apos;activité de formation et d&apos;accompagnement de <strong className="text-white font-semibold">Soufiyan</strong>, formateur indépendant basé à Clermont-Ferrand. Notre vocation est d&apos;accompagner les personnes et les organisations dans leurs transitions professionnelles stratégiques.
-            </p>
+              initialText="“Apprendre, ça doit donner envie.”"
+            />
+            <EditableText
+              as="p"
+              multiline
+              className="text-lg sm:text-xl text-white/75 font-sans leading-relaxed max-w-3xl mx-auto mb-12 block"
+              initialText="Clic&Progress est l'activité de formation et d'accompagnement de Soufiyan, formateur indépendant basé à Clermont-Ferrand. Notre vocation est d'accompagner les personnes et les organisations dans leurs transitions professionnelles stratégiques."
+            />
             <div className="flex flex-wrap justify-center gap-8 text-sm font-medium text-white/90 pt-6 border-t border-white/10">
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF6500] shadow-[0_0_10px_rgba(255,101,0,0.8)]" />
-                <span>Clermont-Ferrand &amp; Mobilité Nationale</span>
+                <EditableText initialText="Clermont-Ferrand & Mobilité Nationale" />
               </div>
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF6500] shadow-[0_0_10px_rgba(255,101,0,0.8)]" />
-                <span>Formateur Indépendant Certifié</span>
+                <EditableText initialText="Formateur Indépendant Certifié" />
               </div>
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF6500] shadow-[0_0_10px_rgba(255,101,0,0.8)]" />
-                <span>Approche Ludopédagogique</span>
+                <EditableText initialText="Approche Ludopédagogique" />
               </div>
             </div>
           </div>

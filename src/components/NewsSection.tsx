@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import EditableText from "./EditableText";
 
 export default function NewsSection() {
   const articles = [
@@ -48,18 +49,21 @@ export default function NewsSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
             <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF6500] mb-2 block">
-              RESSOURCES &amp; RÉFLEXIONS
+              <EditableText initialText="RESSOURCES & RÉFLEXIONS" />
             </span>
-            <h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-1"
+            <EditableText
+              as="h2"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-1 block"
               style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-            >
-              Le regard Clic&amp;Progress
-            </h2>
+              initialText="Le regard Clic&Progress"
+            />
           </div>
-          <p className="text-base text-white/70 max-w-md font-sans">
-            Analyses, cas pratiques et décryptages sur le futur du travail, l&apos;apprentissage actif et la transition numérique.
-          </p>
+          <EditableText
+            as="p"
+            multiline
+            className="text-base text-white/70 max-w-md font-sans block"
+            initialText="Analyses, cas pratiques et décryptages sur le futur du travail, l'apprentissage actif et la transition numérique."
+          />
         </div>
 
         {/* ACCORDION / HORIZONTAL SPLIT CARDS (matching image.png on black theme) */}
@@ -92,23 +96,23 @@ export default function NewsSection() {
                     <div>
                       <div className="flex items-center gap-3 mb-2">
                         <span className="px-3 py-1 rounded-full bg-[#FF6500]/15 font-mono text-xs font-bold text-[#FF6500] uppercase tracking-wider">
-                          {art.category}
+                          <EditableText initialText={art.category} />
                         </span>
-                        <span className="text-xs text-white/50 font-mono">{art.date}</span>
+                        <span className="text-xs text-white/50 font-mono"><EditableText initialText={art.date} /></span>
                       </div>
-                      <h3
-                        className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-snug"
+                      <EditableText
+                        as="h3"
+                        className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-snug block"
                         style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-                      >
-                        {art.title}
-                      </h3>
+                        initialText={art.title}
+                      />
                     </div>
                   </div>
 
                   {/* Right Action Button / Indicator */}
                   <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 pt-4 md:pt-0 border-white/10 flex-shrink-0">
                     <span className="text-xs font-mono text-white/50 hidden sm:inline">
-                      {art.readTime}
+                      <EditableText initialText={art.readTime} />
                     </span>
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
@@ -142,11 +146,14 @@ export default function NewsSection() {
                       <div className="px-6 sm:px-8 md:px-10 pb-8 pt-2 border-t border-white/10 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                         
                         <div className="md:col-span-8 md:pl-14">
-                          <p className="text-base sm:text-lg text-white/80 font-sans leading-relaxed mb-4">
-                            {art.desc}
-                          </p>
+                          <EditableText
+                            as="p"
+                            multiline
+                            className="text-base sm:text-lg text-white/80 font-sans leading-relaxed mb-4 block"
+                            initialText={art.desc}
+                          />
                           <div className="inline-block px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-white/90 font-medium">
-                            💡 {art.highlight}
+                            💡 <EditableText initialText={art.highlight} />
                           </div>
                         </div>
 
@@ -156,7 +163,7 @@ export default function NewsSection() {
                             onClick={(e) => e.stopPropagation()}
                             className="px-6 py-3.5 rounded-xl bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-sm font-bold transition-all shadow-[0_0_20px_rgba(255,101,0,0.3)] flex items-center gap-2.5 group"
                           >
-                            <span>Lire l&apos;article complet</span>
+                            <EditableText initialText="Lire l'article complet" />
                             <span className="group-hover:translate-x-1 transition-transform">→</span>
                           </Link>
                         </div>
@@ -177,7 +184,7 @@ export default function NewsSection() {
             href="/blog"
             className="px-8 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-[#FF6500]/60 text-white font-semibold text-sm sm:text-base transition-all duration-300 flex items-center gap-3 group shadow-lg hover:shadow-[0_0_25px_rgba(255,101,0,0.25)]"
           >
-            <span>Voir tous les articles du blog</span>
+            <EditableText initialText="Voir tous les articles du blog" />
             <span className="w-8 h-8 rounded-full bg-[#FF6500]/20 text-[#FF6500] group-hover:bg-[#FF6500] group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:translate-x-1">
               →
             </span>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import EditableText from "./EditableText";
 
 export default function FeaturesStrip() {
   const features = [
@@ -39,15 +40,17 @@ export default function FeaturesStrip() {
                 </span>
                 <span className="w-2 h-2 rounded-full bg-[#FF6500] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <h3
-                className="text-xl font-bold text-[#1A1A1A] mb-2 font-display"
-                style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              >
-                {item.title}
-              </h3>
-              <p className="text-sm text-[#666660] leading-relaxed font-sans whitespace-pre-line">
-                {item.description}
-              </p>
+              <EditableText
+                as="h3"
+                className="text-xl font-bold text-[#1A1A1A] mb-2 font-display block"
+                initialText={item.title}
+              />
+              <EditableText
+                as="p"
+                multiline
+                className="text-sm text-[#666660] leading-relaxed font-sans whitespace-pre-line block"
+                initialText={item.description}
+              />
             </div>
           ))}
         </div>

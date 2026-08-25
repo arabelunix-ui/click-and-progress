@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import EditableText from "../EditableText";
 
 const CHIFFRES = [
   { valeur: "600+", label: "Apprenants formés" },
@@ -14,13 +17,17 @@ export default function AboutStats() {
         <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-[#E8E5DF]">
           {CHIFFRES.map((c) => (
             <div key={c.label} className="px-8 py-12 text-center">
-              <p
-                className="text-4xl sm:text-5xl font-black text-[#FF6500] mb-2"
+              <EditableText
+                as="p"
+                className="text-4xl sm:text-5xl font-black text-[#FF6500] mb-2 block"
                 style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              >
-                {c.valeur}
-              </p>
-              <p className="text-sm text-[#1A1A1A]/50 font-medium">{c.label}</p>
+                initialText={c.valeur}
+              />
+              <EditableText
+                as="p"
+                className="text-sm text-[#1A1A1A]/50 font-medium block"
+                initialText={c.label}
+              />
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useCallback, useState } from "react";
+import EditableText from "./EditableText";
 
 export interface ReviewItem {
   id: string | number;
@@ -95,16 +96,18 @@ function TestimonialCard({ t }: { t: ReviewItem }) {
       }}
     >
       {/* Quote text */}
-      <p
+      <EditableText
+        as="p"
+        multiline
         style={{
           color: "#555550",
           fontSize: "0.875rem",
           lineHeight: 1.7,
           margin: 0,
+          display: "block",
         }}
-      >
-        {t.quote}
-      </p>
+        initialText={t.quote}
+      />
 
       {/* Divider */}
       <hr style={{ border: "none", borderTop: "1px dashed #E0DDD6", margin: 0 }} />
@@ -137,12 +140,8 @@ function TestimonialCard({ t }: { t: ReviewItem }) {
           <Avatar initials={t.initials || "G"} color={t.color || "#FF6500"} />
         </div>
         <div>
-          <p style={{ color: "#1A1A1A", fontWeight: 600, fontSize: "0.9rem", margin: 0 }}>
-            {t.name}
-          </p>
-          <p style={{ color: "#888884", fontSize: "0.78rem", margin: 0 }}>
-            {t.role}
-          </p>
+          <EditableText as="p" style={{ color: "#1A1A1A", fontWeight: 600, fontSize: "0.9rem", margin: 0, display: "block" }} initialText={t.name} />
+          <EditableText as="p" style={{ color: "#888884", fontSize: "0.78rem", margin: 0, display: "block" }} initialText={t.role} />
         </div>
       </div>
     </article>
@@ -223,7 +222,7 @@ export default function RatingSection() {
           color: "#666660",
         }}
       >
-        Chargement des avis Google Maps...
+        <EditableText initialText="Chargement des avis Google Maps..." />
       </section>
     );
   }
@@ -313,15 +312,13 @@ export default function RatingSection() {
                 <StarIcon key={s} filled={s <= Math.round(ratingValue)} />
               ))}
             </div>
-            <span style={{ fontWeight: 700, color: "#1A1A1A", fontSize: "0.95rem" }}>
-              {Number(ratingValue).toFixed(1)}
-            </span>
+            <EditableText as="span" style={{ fontWeight: 700, color: "#1A1A1A", fontSize: "0.95rem" }} initialText={Number(ratingValue).toFixed(1)} />
           </div>
 
           {/* User count + API Badge */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <p style={{ color: "#666660", fontSize: "0.875rem", margin: 0 }}>
-              <strong style={{ color: "#1A1A1A" }}>{totalUsersCount}</strong> Avis et utilisateurs • {reviewsList.length} avis vérifiés Google
+              <strong style={{ color: "#1A1A1A" }}>{totalUsersCount}</strong> <EditableText initialText={`Avis et utilisateurs • ${reviewsList.length} avis vérifiés Google`} />
             </p>
             <span
               style={{
@@ -345,7 +342,7 @@ export default function RatingSection() {
                   background: isLoadedFromApi ? "#10B981" : "#9CA3AF",
                 }}
               />
-              {isLoadedFromApi ? "API Google Maps Live" : "Avis Google Maps"}
+              <EditableText initialText={isLoadedFromApi ? "API Google Maps Live" : "Avis Google Maps"} />
             </span>
           </div>
         </div>
@@ -361,7 +358,8 @@ export default function RatingSection() {
           }}
         >
           <div style={{ maxWidth: 520 }}>
-            <h2
+            <EditableText
+              as="h2"
               style={{
                 fontFamily: "var(--font-display, Fraunces, serif)",
                 color: "#1A1A1A",
@@ -369,28 +367,32 @@ export default function RatingSection() {
                 fontWeight: 700,
                 lineHeight: 1.15,
                 margin: 0,
+                display: "block",
               }}
-            >
-              Rejoignez la communauté&nbsp;!
-            </h2>
-            <p style={{ color: "#666660", fontSize: "0.9rem", marginTop: 12 }}>
-              Explorez une nouvelle façon de travailler avec des agents aux côtés de milliers
-              d&apos;utilisateurs.
-            </p>
+              initialText="Rejoignez la communauté !"
+            />
+            <EditableText
+              as="p"
+              multiline
+              style={{ color: "#666660", fontSize: "0.9rem", marginTop: 12, display: "block" }}
+              initialText="Explorez une nouvelle façon de travailler avec des agents aux côtés de milliers d'utilisateurs."
+            />
           </div>
 
           {/* Right subtitle */}
-          <p
+          <EditableText
+            as="p"
+            multiline
             style={{
               color: "#666660",
               fontSize: "0.85rem",
               maxWidth: 260,
               lineHeight: 1.6,
               marginTop: 8,
+              display: "block",
             }}
-          >
-            Retours réels d&apos;utilisateurs Clic&amp;Progress du monde entier sur Google Maps.
-          </p>
+            initialText="Retours réels d'utilisateurs Clic&Progress du monde entier sur Google Maps."
+          />
         </div>
       </div>
 

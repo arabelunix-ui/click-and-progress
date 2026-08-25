@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import EditableText from "./EditableText";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -20,17 +21,20 @@ export default function Newsletter() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-[#FF6500]/20 text-[#FF6500] text-xs font-bold uppercase tracking-widest mb-4">
-            RÉACTIVITÉ SOUS 48H GARANTIE
+            <EditableText initialText="RÉACTIVITÉ SOUS 48H GARANTIE" />
           </span>
-          <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+          <EditableText
+            as="h2"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 block"
             style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-          >
-            Prêt à déclencher votre prochain cap ?
-          </h2>
-          <p className="text-neutral-300 text-base max-w-2xl mx-auto font-sans">
-            Échangez directement avec Soufiyan sur vos besoins de formation (en présentiel à Clermont-Ferrand ou à distance). Zéro intermédiaire, accompagnement sur mesure.
-          </p>
+            initialText="Prêt à déclencher votre prochain cap ?"
+          />
+          <EditableText
+            as="p"
+            multiline
+            className="text-neutral-300 text-base max-w-2xl mx-auto font-sans block"
+            initialText="Échangez directement avec Soufiyan sur vos besoins de formation (en présentiel à Clermont-Ferrand ou à distance). Zéro intermédiaire, accompagnement sur mesure."
+          />
         </div>
 
         {submitted ? (
@@ -38,9 +42,13 @@ export default function Newsletter() {
             <div className="w-12 h-12 rounded-full bg-[#FF6500]/20 text-[#FF6500] flex items-center justify-center text-2xl mx-auto mb-4 font-bold">
               ✓
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Demande bien enregistrée !</h3>
+            <EditableText
+              as="h3"
+              className="text-xl font-bold text-white mb-2 block"
+              initialText="Demande bien enregistrée !"
+            />
             <p className="text-sm text-neutral-300">
-              Merci {name}. Soufiyan étudiera votre demande et vous répondra personnellement sous 48h.
+              Merci {name}. <EditableText initialText="Soufiyan étudiera votre demande et vous répondra personnellement sous 48h." />
             </p>
           </div>
         ) : (
@@ -48,7 +56,7 @@ export default function Newsletter() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-400 mb-2">
-                  Votre Prénom &amp; Nom
+                  <EditableText initialText="Votre Prénom & Nom" />
                 </label>
                 <input
                   type="text"
@@ -61,7 +69,7 @@ export default function Newsletter() {
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-400 mb-2">
-                  Votre Email Professionnel
+                  <EditableText initialText="Votre Email Professionnel" />
                 </label>
                 <input
                   type="email"
@@ -76,7 +84,7 @@ export default function Newsletter() {
 
             <div>
               <label className="block text-xs uppercase tracking-wider font-semibold text-neutral-400 mb-2">
-                Domaine de formation souhaité
+                <EditableText initialText="Domaine de formation souhaité" />
               </label>
               <select
                 value={need}

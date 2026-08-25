@@ -36,7 +36,7 @@ export default function Navbar() {
   }, []);
 
   const leftLinks = [
-    { name: "Formations", href: "/#formations", id: "formations" },
+    { name: "Formations", href: "/formations", id: "formations" },
     { name: "Méthode", href: "/#methode", id: "methode" },
     { name: "Publics", href: "/#publics", id: "publics" },
   ];
@@ -47,13 +47,25 @@ export default function Navbar() {
     { name: "Contact", href: "/#contact", id: "contact" },
   ];
 
+  const isEditMode = pathname?.startsWith("/admin/edit") ?? false;
+  
+  const getHref = (originalHref: string) => {
+    if (!isEditMode) return originalHref;
+    if (originalHref.startsWith("/#")) {
+      // Anchors: if on edit home, stay there.
+      return pathname === "/admin/edit" ? originalHref : `/admin/edit${originalHref}`;
+    }
+    // Convert /about to /admin/edit/about
+    return `/admin/edit${originalHref === "/" ? "" : originalHref}`;
+  };
+
   return (
     <>
       <header
         className={`sticky top-0 z-50 transition-all duration-500 ${
           visible ? "translate-y-0" : "-translate-y-full"
         } ${
-          scrolled || pathname === "/about" || pathname === "/blog"
+          scrolled || pathname === "/about" || pathname === "/blog" || pathname === "/formations"
             ? "bg-[#1A1A1A]/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.6)]"
             : "bg-[#1A1A1A]"
         }`}
@@ -64,11 +76,11 @@ export default function Navbar() {
           {/* LEFT NAV LINKS */}
           <nav className="hidden lg:flex items-stretch">
             {leftLinks.map((item) => {
-              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/blog"));
+              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/blog" || item.href === "/formations"));
               return (
                 <Link
                   key={item.id}
-                  href={item.href}
+                  href={getHref(item.href)}
                   onMouseEnter={() => setActiveLink(item.id)}
                   onMouseLeave={() => setActiveLink(null)}
                   className={`relative flex items-center px-5 lg:px-6 py-5 text-sm font-bold transition-colors duration-200 border-r border-white/8 ${
@@ -89,7 +101,7 @@ export default function Navbar() {
 
           {/* CENTER LOGO */}
           <div className="flex items-center justify-center flex-1 lg:flex-none lg:w-auto px-6 lg:px-10 py-2">
-            <Link href="/" className="group flex items-center">
+            <Link href={getHref("/")} className="group flex items-center">
               <Image
                 src="/images/ClickandProgressLogo.png"
                 alt="Clic & Progress"
@@ -104,11 +116,11 @@ export default function Navbar() {
           {/* RIGHT NAV LINKS */}
           <nav className="hidden lg:flex items-stretch">
             {rightLinks.map((item) => {
-              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/blog"));
+              const isItemActive = activeLink === item.id || (pathname === item.href && (item.href === "/about" || item.href === "/blog" || item.href === "/formations"));
               return (
                 <Link
                   key={item.id}
-                  href={item.href}
+                  href={getHref(item.href)}
                   onMouseEnter={() => setActiveLink(item.id)}
                   onMouseLeave={() => setActiveLink(null)}
                   className={`relative flex items-center px-5 lg:px-6 py-5 text-sm font-bold transition-colors duration-200 border-l border-white/8 ${
@@ -154,12 +166,12 @@ export default function Navbar() {
         >
           <div className="flex flex-col divide-y divide-white/8">
             {[...leftLinks, ...rightLinks].map((item) => {
-              const isItemActive = pathname === item.href && (item.href === "/about" || item.href === "/blog");
+              const isItemActive = pathname === item.href && (item.href === "/about" || item.href === "/blog" || item.href === "/formations");
               return (
                 <Link
                   key={item.id}
                   onClick={() => setMobileMenuOpen(false)}
-                  href={item.href}
+                  href={getHref(item.href)}
                   className={`flex items-center px-6 py-4 text-sm font-bold hover:bg-white/5 transition-colors ${
                     isItemActive ? "text-[#FF6500] bg-white/5" : "text-white hover:text-[#FF6500]"
                   }`}
@@ -174,7 +186,7 @@ export default function Navbar() {
             <div className="p-5">
               <Link
                 onClick={() => setMobileMenuOpen(false)}
-                href="/#contact"
+                href={getHref("/#contact")}
                 className="flex items-center justify-center w-full py-3.5 px-6 text-xs font-extrabold uppercase tracking-widest text-white bg-[#FF6500] rounded-xl hover:bg-[#FF7A1F] shadow-[0_4px_20px_rgba(255,101,0,0.4)] transition-all"
               >
                 Contacter Soufiyan — Réponse &lt; 48h

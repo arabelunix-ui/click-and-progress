@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import EditableText from "@/components/EditableText";
 
 /* ── Données centralisées des articles ── */
 const ARTICLES = [
@@ -147,10 +148,10 @@ export default async function BlogArticlePage({
           {/* Meta */}
           <div className="flex flex-wrap items-center gap-3 mb-6">
             <span className="px-3 py-1 rounded-full bg-[#FF6500]/10 font-mono text-xs font-bold text-[#FF6500] uppercase tracking-wider">
-              {article.category}
+              <EditableText initialText={article.category} contentKey={`blog-art-${slug}-cat`} />
             </span>
-            <span className="text-xs text-[#1A1A1A]/40 font-mono">{article.date}</span>
-            <span className="text-xs text-[#1A1A1A]/40 font-mono">· {article.readTime}</span>
+            <span className="text-xs text-[#1A1A1A]/40 font-mono"><EditableText initialText={article.date} contentKey={`blog-art-${slug}-date`} /></span>
+            <span className="text-xs text-[#1A1A1A]/40 font-mono">· <EditableText initialText={article.readTime} contentKey={`blog-art-${slug}-time`} /></span>
           </div>
 
           {/* Number + Title */}
@@ -162,18 +163,22 @@ export default async function BlogArticlePage({
               className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1A1A1A] leading-tight"
               style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
             >
-              {article.title}
+              <EditableText initialText={article.title} contentKey={`blog-art-${slug}-title`} />
             </h1>
           </div>
 
           {/* Intro */}
-          <p className="text-lg sm:text-xl text-[#1A1A1A]/65 leading-relaxed border-l-2 border-[#FF6500] pl-5">
-            {article.intro}
-          </p>
+          <EditableText
+            as="p"
+            multiline
+            initialText={article.intro}
+            contentKey={`blog-art-${slug}-intro`}
+            className="text-lg sm:text-xl text-[#1A1A1A]/65 leading-relaxed border-l-2 border-[#FF6500] pl-5 block"
+          />
 
           {/* Highlight */}
           <div className="mt-6 inline-block px-4 py-2 rounded-xl bg-white border border-[#E8E5DF] text-xs font-mono text-[#1A1A1A]/60 shadow-sm">
-            💡 {article.highlight}
+            💡 <EditableText initialText={article.highlight} contentKey={`blog-art-${slug}-highlight`} />
           </div>
         </div>
       </div>
@@ -193,11 +198,15 @@ export default async function BlogArticlePage({
               className="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-4 pl-8"
               style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
             >
-              {section.heading}
+              <EditableText initialText={section.heading} contentKey={`blog-art-${slug}-sec-${i}-heading`} />
             </h2>
-            <p className="text-base sm:text-lg text-[#1A1A1A]/60 leading-relaxed pl-8">
-              {section.body}
-            </p>
+            <EditableText
+              as="p"
+              multiline
+              initialText={section.body}
+              contentKey={`blog-art-${slug}-sec-${i}-body`}
+              className="text-base sm:text-lg text-[#1A1A1A]/60 leading-relaxed pl-8 block"
+            />
           </div>
         ))}
       </div>
@@ -205,22 +214,28 @@ export default async function BlogArticlePage({
       {/* ── CTA BAS DE PAGE ── */}
       <div className="bg-[#1A1A1A] mt-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <p className="text-xs font-mono uppercase tracking-widest text-[#FF6500] mb-4">Passons à l&apos;action</p>
+          <p className="text-xs font-mono uppercase tracking-widest text-[#FF6500] mb-4">
+            <EditableText initialText="Passons à l'action" contentKey="blog-det-cta-badge" />
+          </p>
           <h2
             className="text-3xl sm:text-4xl font-bold text-white mb-6"
             style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
           >
-            Envie d&apos;aller plus loin avec Clic&amp;Progress ?
+            <EditableText initialText="Envie d'aller plus loin avec Clic&Progress ?" contentKey="blog-det-cta-title" />
           </h2>
-          <p className="text-white/50 mb-8 max-w-lg mx-auto">
-            Chaque article est tiré de cas réels vécus en formation. Échangeons sur ce que nous pouvons faire ensemble.
-          </p>
+          <EditableText
+            as="p"
+            multiline
+            initialText="Chaque article est tiré de cas réels vécus en formation. Échangeons sur ce que nous pouvons faire ensemble."
+            contentKey="blog-det-cta-desc"
+            className="text-white/50 mb-8 max-w-lg mx-auto block"
+          />
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/#contact"
               className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white font-bold uppercase tracking-widest text-xs transition-all shadow-[0_4px_24px_rgba(255,101,0,0.4)]"
             >
-              <span>Échanger sur votre projet</span>
+              <span><EditableText initialText="Échanger sur votre projet" contentKey="blog-det-cta-btn" /></span>
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
             <Link

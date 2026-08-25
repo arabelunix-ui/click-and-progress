@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import EditableText from "../EditableText";
 
 const VALEURS = [
   {
@@ -33,14 +36,14 @@ export default function AboutValues() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF6500] mb-3 block">
-            Ce qui me guide
+            <EditableText initialText="Ce qui me guide" />
           </span>
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-[#1A1A1A]"
+          <EditableText
+            as="h2"
+            className="text-3xl sm:text-4xl font-bold text-[#1A1A1A] block"
             style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-          >
-            Mes valeurs pédagogiques
-          </h2>
+            initialText="Mes valeurs pédagogiques"
+          />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {VALEURS.map((v) => (
@@ -51,13 +54,18 @@ export default function AboutValues() {
               <span className="font-mono text-4xl font-black text-[#FF6500]/15 group-hover:text-[#FF6500]/25 transition-colors block mb-5 leading-none">
                 {v.num}
               </span>
-              <h3
-                className="text-lg font-bold text-[#1A1A1A] mb-3"
+              <EditableText
+                as="h3"
+                className="text-lg font-bold text-[#1A1A1A] mb-3 block"
                 style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              >
-                {v.titre}
-              </h3>
-              <p className="text-sm text-[#1A1A1A]/55 leading-relaxed">{v.texte}</p>
+                initialText={v.titre}
+              />
+              <EditableText
+                as="p"
+                multiline
+                className="text-sm text-[#1A1A1A]/55 leading-relaxed block"
+                initialText={v.texte}
+              />
             </div>
           ))}
         </div>

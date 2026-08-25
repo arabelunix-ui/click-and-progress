@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
+import EditableText from "./EditableText";
 
 export default function ThreeBenefits() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -81,14 +82,14 @@ export default function ThreeBenefits() {
           {/* Top Section Title */}
           <div className="text-center">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF6500] mb-2 block">
-              MÉTHODOLOGIE EN ACTION
+              <EditableText initialText="MÉTHODOLOGIE EN ACTION" />
             </span>
-            <h2
-              className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white drop-shadow-md"
+            <EditableText
+              as="h2"
+              className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white drop-shadow-md block"
               style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-            >
-              Votre transformation en 3 étapes
-            </h2>
+              initialText="Votre transformation en 3 étapes"
+            />
           </div>
 
           {/* Central Animated Content overlaying the video */}
@@ -129,24 +130,27 @@ export default function ThreeBenefits() {
                 <div className="lg:col-span-7">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="px-3.5 py-1 rounded-full bg-[#FF6500]/20 border border-[#FF6500]/40 font-mono text-xs font-bold text-[#FF6500] uppercase tracking-widest">
-                      {current.badge}
+                      <EditableText initialText={current.badge} />
                     </span>
                   </div>
-                  <h3
-                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight"
+                  <EditableText
+                    as="h3"
+                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight block"
                     style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-                  >
-                    {current.title}
-                  </h3>
-                  <p className="text-base sm:text-xl text-white/85 font-sans leading-relaxed">
-                    {current.desc}
-                  </p>
+                    initialText={current.title}
+                  />
+                  <EditableText
+                    as="p"
+                    multiline
+                    className="text-base sm:text-xl text-white/85 font-sans leading-relaxed block"
+                    initialText={current.desc}
+                  />
                 </div>
 
                 {/* Right side: Floating Keywords over Video */}
                 <div className="lg:col-span-5 flex flex-col justify-center gap-3.5 pl-0 lg:pl-6 border-t lg:border-t-0 lg:border-l border-white/15 pt-6 lg:pt-0">
                   <span className="font-mono text-xs uppercase text-[#FF6500] tracking-widest font-bold mb-1">
-                    LES MOTS CLÉS DU SUCCÈS :
+                    <EditableText initialText="LES MOTS CLÉS DU SUCCÈS :" />
                   </span>
                   {current.keywords.map((kw, i) => (
                     <motion.div
@@ -158,7 +162,7 @@ export default function ThreeBenefits() {
                     >
                       <div className="flex items-center gap-3">
                         <span className="w-2.5 h-2.5 rounded-full bg-[#FF6500] shadow-[0_0_10px_rgba(255,101,0,0.8)]" />
-                        <span>{kw}</span>
+                        <EditableText initialText={kw} />
                       </div>
                       <span className="font-mono text-xs text-white/40">✓</span>
                     </motion.div>

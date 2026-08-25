@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import EditableText from "@/components/EditableText";
 
 /* ── Données centralisées des articles ── */
 const ARTICLES = [
@@ -47,6 +49,8 @@ const CATEGORIES = ["Tous", "IA & Productivité", "Reconversion & Mindset", "Lud
 
 export default function BlogListingPage() {
   const [selectedCat, setSelectedCat] = useState("Tous");
+  const pathname = usePathname();
+  const isEditMode = pathname?.startsWith("/admin/edit") ?? false;
 
   const filtered = selectedCat === "Tous"
     ? ARTICLES
@@ -73,24 +77,28 @@ export default function BlogListingPage() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
                 <Link
-                  href="/"
+                  href={isEditMode ? "/admin/edit" : "/"}
                   className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/40 hover:text-[#FF6500] transition-colors mb-6"
                 >
-                  <span>←</span> Retour à l&apos;accueil
+                  <span>←</span> Retour à l'accueil
                 </Link>
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF6500] mb-2 block">
-                  RESSOURCES &amp; RÉFLEXIONS
+                  <EditableText initialText="RESSOURCES & RÉFLEXIONS" contentKey="blog-hero-badge" />
                 </span>
                 <h1
                   className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mt-1"
                   style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
                 >
-                  Le Blog Clic&amp;Progress
+                  <EditableText initialText="Le Blog Clic&Progress" contentKey="blog-hero-title" />
                 </h1>
               </div>
-              <p className="text-base sm:text-lg text-white/70 max-w-md font-sans">
-                Analyses, cas pratiques et décryptages sur le futur du travail, l&apos;apprentissage actif et la transition numérique.
-              </p>
+              <EditableText 
+                as="p"
+                multiline
+                className="text-base sm:text-lg text-white/70 max-w-md font-sans block"
+                initialText="Analyses, cas pratiques et décryptages sur le futur du travail, l'apprentissage actif et la transition numérique."
+                contentKey="blog-hero-desc"
+              />
             </div>
 
             {/* Filtres de catégorie */}
@@ -116,7 +124,9 @@ export default function BlogListingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <AnimatePresence mode="popLayout">
             <div className="grid grid-cols-1 gap-8">
-              {filtered.map((art) => (
+              {filtered.map((art) => {
+                const artHref = isEditMode ? `/admin/edit/blog/${art.slug}` : `/blog/${art.slug}`;
+                return (
                 <motion.div
                   key={art.slug}
                   layout
@@ -134,25 +144,29 @@ export default function BlogListingPage() {
                     <div className="space-y-3">
                       <div className="flex items-center gap-3 flex-wrap">
                         <span className="px-3 py-1 rounded-full bg-[#FF6500]/15 font-mono text-xs font-bold text-[#FF6500] uppercase tracking-wider">
-                          {art.category}
+                          <EditableText initialText={art.category} contentKey={`blog-art-${art.slug}-cat`} />
                         </span>
-                        <span className="text-xs text-white/40 font-mono">{art.date}</span>
-                        <span className="text-xs text-white/40 font-mono">· {art.readTime}</span>
+                        <span className="text-xs text-white/40 font-mono"><EditableText initialText={art.date} contentKey={`blog-art-${art.slug}-date`} /></span>
+                        <span className="text-xs text-white/40 font-mono">· <EditableText initialText={art.readTime} contentKey={`blog-art-${art.slug}-time`} /></span>
                       </div>
                       <h2
                         className="text-2xl sm:text-3xl font-bold text-white group-hover:text-[#FF6500] transition-colors leading-snug"
                         style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
                       >
-                        <Link href={`/blog/${art.slug}`}>
-                          {art.title}
+                        <Link href={artHref}>
+                          <EditableText initialText={art.title} contentKey={`blog-art-${art.slug}-title`} />
                         </Link>
                       </h2>
-                      <p className="text-base text-white/70 leading-relaxed max-w-3xl">
-                        {art.intro}
-                      </p>
+                      <EditableText 
+                        as="p" 
+                        multiline 
+                        initialText={art.intro} 
+                        contentKey={`blog-art-${art.slug}-intro`} 
+                        className="text-base text-white/70 leading-relaxed max-w-3xl block" 
+                      />
                       <div className="pt-2">
                         <span className="inline-block px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-white/80 font-medium">
-                          💡 {art.highlight}
+                          💡 <EditableText initialText={art.highlight} contentKey={`blog-art-${art.slug}-highlight`} />
                         </span>
                       </div>
                     </div>
@@ -161,15 +175,16 @@ export default function BlogListingPage() {
                   {/* Droite : bouton d'action */}
                   <div className="flex lg:flex-col items-center lg:items-end justify-between border-t lg:border-t-0 pt-6 lg:pt-0 border-white/10 shrink-0">
                     <Link
-                      href={`/blog/${art.slug}`}
+                      href={artHref}
                       className="px-6 py-3.5 rounded-xl bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-sm font-bold transition-all shadow-[0_4px_20px_rgba(255,101,0,0.3)] flex items-center gap-2 group-hover:translate-x-1"
                     >
-                      <span>Lire l&apos;article</span>
+                      <span><EditableText initialText="Lire l'article" contentKey="blog-btn-read" /></span>
                       <span>→</span>
                     </Link>
                   </div>
                 </motion.div>
-              ))}
+                );
+              })}
 
               {filtered.length === 0 && (
                 <div className="text-center py-20 rounded-3xl bg-[#1A1816]/40 border border-dashed border-white/10">
@@ -184,23 +199,27 @@ export default function BlogListingPage() {
         <section className="bg-[#1A1816] border-t border-white/10 py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF6500] mb-3 block">
-              Passons à l&apos;action
+              <EditableText initialText="Passons à l'action" contentKey="blog-cta-badge" />
             </span>
             <h2
               className="text-3xl sm:text-4xl font-bold text-white mb-6"
               style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
             >
-              Envie de transformer vos équipes concrètement ?
+              <EditableText initialText="Envie de transformer vos équipes concrètement ?" contentKey="blog-cta-title" />
             </h2>
-            <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed">
-              Chaque réflexion partagée sur ce blog est issue de cas pratiques vécus sur le terrain. Échangeons sur vos enjeux de formation.
-            </p>
+            <EditableText
+              as="p"
+              multiline
+              initialText="Chaque réflexion partagée sur ce blog est issue de cas pratiques vécus sur le terrain. Échangeons sur vos enjeux de formation."
+              contentKey="blog-cta-desc"
+              className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed block"
+            />
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/#contact"
+                href={isEditMode ? "/admin/edit/#contact" : "/#contact"}
                 className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white font-bold uppercase tracking-widest text-xs transition-all shadow-[0_4px_24px_rgba(255,101,0,0.4)]"
               >
-                <span>Demander un échange gratuit</span>
+                <span><EditableText initialText="Demander un échange gratuit" contentKey="blog-cta-btn" /></span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
