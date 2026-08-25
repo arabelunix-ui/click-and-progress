@@ -8,7 +8,7 @@ let contentCachePromise: Promise<Record<string, string>> | null = null;
 
 function fetchContent() {
   if (!contentCachePromise) {
-    contentCachePromise = fetch("/api/content")
+    contentCachePromise = fetch("/api/content", { cache: "no-store" })
       .then((res) => res.json())
       .catch(() => ({}));
   }

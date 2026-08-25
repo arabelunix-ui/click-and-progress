@@ -23,7 +23,7 @@ async function getRemoteData() {
     const blob = blobs.find(b => b.pathname === BLOB_FILENAME);
     
     if (blob) {
-      const response = await fetch(blob.url, { cache: "no-store" });
+      const response = await fetch(`${blob.url}?t=${Date.now()}`, { cache: "no-store" });
       return await response.json();
     }
   } catch (e) {
