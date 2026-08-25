@@ -20,6 +20,7 @@ interface EditableTextProps {
   contentKey?: string;
   as?: keyof React.JSX.IntrinsicElements;
   className?: string;
+  style?: React.CSSProperties;
   onSave?: (newText: string) => void;
   multiline?: boolean;
 }
@@ -29,6 +30,7 @@ export default function EditableText({
   contentKey,
   as: Component = "span",
   className = "",
+  style,
   onSave,
   multiline = false,
 }: EditableTextProps) {
@@ -125,7 +127,7 @@ export default function EditableText({
 
   if (isEditing && isEditable) {
     return (
-      <div className={`relative inline-block w-full ${className}`}>
+      <div className={`relative inline-block w-full ${className}`} style={style}>
         {multiline ? (
           <textarea
             ref={inputRef as React.RefObject<HTMLTextAreaElement>}
@@ -164,6 +166,7 @@ export default function EditableText({
       className={`relative inline-block transition-all duration-200 group ${className} ${
         isHovered && isEditable ? "ring-2 ring-blue-400 ring-offset-4 rounded cursor-text" : ""
       }`}
+      style={style}
       onMouseEnter={() => isEditable && setIsHovered(true)}
       onMouseLeave={() => isEditable && setIsHovered(false)}
       onClick={(e) => {
