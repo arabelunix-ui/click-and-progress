@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 
-const DATA_FILE = path.join(process.cwd(), "data", "content.json");
+const BLOB_FILENAME = "content.json";
 
 export async function POST() {
   try {
-    // Overwrite the content.json file with an empty object
-    await fs.writeFile(DATA_FILE, JSON.stringify({}, null, 2));
+    // Overwrite the blob with an empty object
+    await put(BLOB_FILENAME, JSON.stringify({}, null, 2), { 
+      access: "public", 
+      addRandomSuffix: false 
+    });
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to reset content" }, { status: 500 });

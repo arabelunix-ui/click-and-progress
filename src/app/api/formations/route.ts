@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import { put, list } from "@vercel/blob";
 
-const DATA_FILE = path.join(process.cwd(), "data", "formations.json");
+const BLOB_FILENAME = "formations.json";
 
 // Default initial data mapping to what we had in FormationsList
 const INITIAL_DATA = [
@@ -16,37 +15,41 @@ const INITIAL_DATA = [
   { id: 8, slug: "bachelor-responsable-developpement-commercial", level: "N6", titre: "Bachelor Responsable du Développement Commercial", categorie: "Commerce", duree: "1 an", public: "Tous", statut: "Actif", inscrits: 0 },
 ];
 
-async function ensureFileExists() {
+async function getRemoteData() {
   try {
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-    try {
-      await fs.access(DATA_FILE);
-    } catch {
-      await fs.writeFile(DATA_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+    const { blobs } = await list({ prefix: BLOB_FILENAME });
+    const blob = blobs.find(b => b.pathname === BLOB_FILENAME);
+    
+    if (blob) {
+      const response = await fetch(blob.url, { cache: "no-store" });
+      return await response.json();
     }
-  } catch (error) {
-    console.error("Error ensuring file exists:", error);
+  } catch (e) {
+    console.error("Error reading from Vercel Blob:", e);
   }
+  return INITIAL_DATA;
+}
+
+async function saveRemoteData(data: any) {
+  await put(BLOB_FILENAME, JSON.stringify(data, null, 2), { 
+    access: "public", 
+    addRandomSuffix: false 
+  });
 }
 
 export async function GET() {
   try {
-    await ensureFileExists();
-    const fileContents = await fs.readFile(DATA_FILE, "utf-8");
-    const data = JSON.parse(fileContents);
+    const data = await getRemoteData();
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json([], { status: 500 });
+    return NextResponse.json(INITIAL_DATA, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
-    await ensureFileExists();
     const newFormation = await request.json();
-
-    const fileContents = await fs.readFile(DATA_FILE, "utf-8");
-    const data = JSON.parse(fileContents);
+    const data = await getRemoteData();
 
     // Auto generate slug if not provided
     if (!newFormation.slug && newFormation.titre) {
@@ -71,7 +74,7 @@ export async function POST(request: Request) {
       data.push(newFormation);
     }
 
-    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    await saveRemoteData(data);
     return NextResponse.json({ success: true, data });
   } catch (error) {
     return NextResponse.json({ error: "Failed to save formation" }, { status: 500 });
@@ -80,15 +83,12 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    await ensureFileExists();
     const { id } = await request.json();
-
-    const fileContents = await fs.readFile(DATA_FILE, "utf-8");
-    let data = JSON.parse(fileContents);
+    let data = await getRemoteData();
     
     data = data.filter((f: any) => f.id !== id);
 
-    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    await saveRemoteData(data);
     return NextResponse.json({ success: true, data });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete formation" }, { status: 500 });

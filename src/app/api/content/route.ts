@@ -1,29 +1,34 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import { put, list } from "@vercel/blob";
 
-const DATA_FILE = path.join(process.cwd(), "data", "content.json");
+const BLOB_FILENAME = "content.json";
 
-// Helper to ensure the file and directory exist
-async function ensureFileExists() {
+async function getRemoteData() {
   try {
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-    try {
-      await fs.access(DATA_FILE);
-    } catch {
-      // File doesn't exist, create it with empty object
-      await fs.writeFile(DATA_FILE, JSON.stringify({}, null, 2));
+    const { blobs } = await list({ prefix: BLOB_FILENAME });
+    // Find the exact match or use the first one if we used addRandomSuffix: false
+    const blob = blobs.find(b => b.pathname === BLOB_FILENAME);
+    
+    if (blob) {
+      const response = await fetch(blob.url, { cache: "no-store" });
+      return await response.json();
     }
-  } catch (error) {
-    console.error("Error ensuring file exists:", error);
+  } catch (e) {
+    console.error("Error reading from Vercel Blob:", e);
   }
+  return {};
+}
+
+async function saveRemoteData(data: any) {
+  await put(BLOB_FILENAME, JSON.stringify(data, null, 2), { 
+    access: "public", 
+    addRandomSuffix: false 
+  });
 }
 
 export async function GET() {
   try {
-    await ensureFileExists();
-    const fileContents = await fs.readFile(DATA_FILE, "utf-8");
-    const data = JSON.parse(fileContents);
+    const data = await getRemoteData();
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({}, { status: 500 });
@@ -32,22 +37,15 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    await ensureFileExists();
     const { key, value } = await request.json();
 
     if (!key) {
       return NextResponse.json({ error: "Key is required" }, { status: 400 });
     }
 
-    // Read current data
-    const fileContents = await fs.readFile(DATA_FILE, "utf-8");
-    const data = JSON.parse(fileContents);
-
-    // Update
+    const data = await getRemoteData();
     data[key] = value;
-
-    // Write back
-    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    await saveRemoteData(data);
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
@@ -58,22 +56,15 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    await ensureFileExists();
     const { key } = await request.json();
 
     if (!key) {
       return NextResponse.json({ error: "Key is required" }, { status: 400 });
     }
 
-    // Read current data
-    const fileContents = await fs.readFile(DATA_FILE, "utf-8");
-    const data = JSON.parse(fileContents);
-
-    // Delete the key
+    const data = await getRemoteData();
     delete data[key];
-
-    // Write back
-    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
+    await saveRemoteData(data);
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
