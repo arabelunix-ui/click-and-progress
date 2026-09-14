@@ -1,66 +1,116 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import EditableText from "../EditableText";
+
+const CATEGORIES = [
+  { id: "all", label: "Toutes" },
+  { id: "commerce", label: "Commerce & Vente" },
+  { id: "insertion", label: "Insertion & Accompagnement" },
+  { id: "numerique", label: "Numérique & Bureautique" },
+  { id: "formateurs", label: "Formation de formateurs" },
+];
+
+const FORMATIONS = [
+  { cat: "commerce", badge: "N3", title: "TP Employé Commercial" },
+  { cat: "commerce", badge: "N3", title: "TP Conseiller de Vente" },
+  { cat: "commerce", badge: "N4", title: "TP Assistant Manager d'Unité Marchande" },
+  { cat: "commerce", badge: "N5", title: "TP Manager d'Unité Marchande" },
+  { cat: "commerce", badge: "N4", title: "TP Conseiller Commercial" },
+  { cat: "commerce", badge: "N5", title: "TP Négociateur Technico-Commercial" },
+  { cat: "commerce", badge: "N6", title: "Bachelor Management & Gestion des Entreprises" },
+  { cat: "commerce", badge: "N6", title: "Bachelor Responsable du Développement Commercial" },
+  
+  { cat: "insertion", badge: "—", title: "Techniques de recherche d'emploi", subtitle: "Préparation aux entretiens d'embauche" },
+  { cat: "insertion", badge: "—", title: "Formation en insertion professionnelle" },
+  { cat: "insertion", badge: "—", title: "Accompagnement vers l'emploi ou la formation" },
+  { cat: "insertion", badge: "—", title: "Développement des compétences professionnelles" },
+  { cat: "insertion", badge: "—", title: "Savoir-être professionnel" },
+  { cat: "insertion", badge: "—", title: "Construction de projet professionnel" },
+  { cat: "insertion", badge: "CléA", title: "Préparation à la certification CléA" },
+  
+  { cat: "numerique", badge: "—", title: "Découverte informatique" },
+  { cat: "numerique", badge: "—", title: "Suite Office, du débutant à l'expert" },
+  { cat: "numerique", badge: "—", title: "Outils numériques au quotidien" },
+  
+  { cat: "formateurs", badge: "—", title: "Formateur Professionnel d'Adultes" },
+  { cat: "formateurs", badge: "—", title: "Créer des formations dynamiques" },
+  { cat: "formateurs", badge: "—", title: "Outils numériques pour formateurs" },
+];
 
 export default function FormationsList() {
-  const [formations, setFormations] = useState<any[]>([]);
+  const [activeFilter, setActiveFilter] = useState("all");
   const pathname = usePathname();
   const isEditMode = pathname?.startsWith("/admin/edit") ?? false;
 
-  useEffect(() => {
-    fetch("/api/formations")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setFormations(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const filteredFormations = FORMATIONS.filter(
+    (f) => activeFilter === "all" || f.cat === activeFilter
+  );
 
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="mb-12">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-1.5 bg-[#FF6500] flex-shrink-0" />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black italic uppercase tracking-tight text-[#1A1A1A] flex flex-wrap gap-2">
-            <EditableText initialText="FORMATIONS DÉJÀ" />
-            <span className="text-[#FF6500]">
-              <EditableText initialText="ANIMÉES" />
-            </span>
-          </h1>
+    <div className="max-w-[1100px] mx-auto px-8">
+      <div className="max-w-[600px] mb-9">
+        <div className="text-[13.5px] font-semibold text-[#FF6500] mb-2.5">
+          — Formations déjà animées
         </div>
-        <EditableText
-          as="p"
-          multiline
-          className="text-[#1A1A1A]/70 text-lg sm:text-xl max-w-3xl leading-relaxed block"
-          initialText="Des titres professionnels et diplômes couverts sur toute la filière commerce, de l'employé au responsable de développement."
-        />
+        <h2 className="font-display text-[32px] font-medium leading-[1.2] text-[#17140F] tracking-[-0.01em]">
+          Quatre domaines, une même approche
+        </h2>
+        <p className="mt-[14px] text-[#6E6A62] text-[15.5px]">
+          Filtrez par domaine pour voir les formations animées dans chaque catégorie.
+        </p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-        {formations.map((f, i) => {
-          const href = isEditMode ? `/admin/edit/formations/${f.slug}` : `/formations/${f.slug}`;
-          return (
-          <Link
-            key={f.id || i}
-            href={href}
-            className="flex items-center bg-white border-[3px] border-[#1A1A1A] p-2 sm:p-3 hover:-translate-y-1 transition-transform cursor-pointer"
-            style={{ boxShadow: "6px 6px 0px 0px #FAD7C4" }}
+      <div className="flex gap-[10px] flex-wrap mb-9 border-b border-[#17140F]/10 pb-7">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setActiveFilter(cat.id)}
+            className={`font-sans text-[14px] font-semibold px-[18px] py-[10px] rounded-[20px] border transition-all duration-150 ${
+              activeFilter === cat.id
+                ? "bg-[#17140F] text-white border-[#17140F]"
+                : "bg-white text-[#6E6A62] border-[#17140F]/10 hover:border-[#FF6500] hover:text-[#17140F]"
+            }`}
           >
-            <div className="bg-[#1A1A1A] text-white font-black italic px-4 py-2 text-xl flex-shrink-0">
-              <EditableText contentKey={`formation-level-${f.slug}`} initialText={f.level || "N3"} />
-            </div>
-            <div className="ml-4 font-bold text-[#1A1A1A] text-base sm:text-lg flex-1">
-              <EditableText contentKey={`formation-title-${f.slug}`} initialText={f.titre} />
-            </div>
-          </Link>
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {filteredFormations.map((item, i) => {
+          const slug = item.title
+            .toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)+/g, "");
+            
+          const href = isEditMode ? `/admin/edit/formations/${slug}` : `/formations/${slug}`;
+
+          return (
+            <Link
+              key={i}
+              href={href}
+              className="flex items-center gap-4 border border-[#17140F]/10 rounded-lg px-5 py-4 transition-colors duration-150 hover:border-[#FF6500] animate-fade-in group bg-white"
+            >
+              <div className="bg-[#17140F] text-white font-display font-semibold text-[14px] px-3 py-1.5 rounded-[5px] shrink-0">
+                {item.badge}
+              </div>
+              <div>
+                <div className="text-[15px] font-medium text-[#17140F]">
+                  {item.title}
+                </div>
+                {item.subtitle && (
+                  <div className="text-[12.5px] text-[#6E6A62] mt-0.5">
+                    {item.subtitle}
+                  </div>
+                )}
+              </div>
+            </Link>
           );
         })}
       </div>
-    </section>
+    </div>
   );
 }
