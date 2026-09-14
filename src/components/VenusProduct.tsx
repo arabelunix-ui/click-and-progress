@@ -34,7 +34,7 @@ const STEPS = [
 
 export default function VenusProduct() {
   return (
-    <section id="pedagogie" className="bg-[#1A1A1A] text-white">
+    <section id="methode" className="bg-[#1A1A1A] text-white">
 
       {/* ── PART 1 : FULL-VIEWPORT STATEMENT ─────────────────── */}
       <div
@@ -51,9 +51,9 @@ export default function VenusProduct() {
         />
 
         {/* Top badge */}
-        <span className="relative z-10 text-[11px] font-mono uppercase tracking-[0.22em] text-[#FF6500] mb-8">
-          <EditableText initialText="03 — Notre Pédagogie" />
-        </span>
+        <p className="relative z-10 font-mono text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold text-[#FF6500] mb-8 text-center mx-auto w-full">
+          <EditableText initialText="MÉTHODES" />
+        </p>
 
         {/* Centered title */}
         <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
@@ -179,21 +179,7 @@ export default function VenusProduct() {
                   />
                 </div>
 
-                {/* CTA on last card */}
-                {i === STEPS.length - 1 && (
-                  <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                    <Link
-                      href="#contact"
-                      className="group/btn inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(255,101,0,0.4)] hover:shadow-[0_6px_28px_rgba(255,101,0,0.6)]"
-                    >
-                      <EditableText initialText="Échanger sur votre projet" />
-                      <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 transition-transform text-sm">→</span>
-                    </Link>
-                    <span className="text-xs text-white/40 font-mono uppercase tracking-widest">
-                      <EditableText initialText="Clermont-Ferrand & France · < 48h de réponse" />
-                    </span>
-                  </div>
-                )}
+               
               </div>
             </div>
           </div>

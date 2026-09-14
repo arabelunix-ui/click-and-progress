@@ -46,24 +46,22 @@ export default function NewsSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF6500] mb-2 block">
-              <EditableText initialText="RESSOURCES & RÉFLEXIONS" />
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center mb-14 sm:mb-20">
+          <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold mb-4 text-center mx-auto w-full text-[#FF6500]">
+            <EditableText initialText="RESSOURCES & RÉFLEXIONS" />
+          </p>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.15] text-center mx-auto w-full text-white" style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}>
+            <EditableText initialText="Le regard" />{" "}
+            <span className="italic font-serif font-normal inline-block text-[#FF6500]">
+              <EditableText initialText="Clic&Progress" />
             </span>
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto mt-5 font-sans font-normal leading-relaxed text-center w-full text-white/70">
             <EditableText
-              as="h2"
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-1 block"
-              style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-              initialText="Le regard Clic&Progress"
+              multiline
+              initialText="Analyses, cas pratiques et décryptages sur le futur du travail, l'apprentissage actif et la transition numérique."
             />
-          </div>
-          <EditableText
-            as="p"
-            multiline
-            className="text-base text-white/70 max-w-md font-sans block"
-            initialText="Analyses, cas pratiques et décryptages sur le futur du travail, l'apprentissage actif et la transition numérique."
-          />
+          </p>
         </div>
 
         {/* ACCORDION / HORIZONTAL SPLIT CARDS (matching image.png on black theme) */}

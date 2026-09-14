@@ -1,162 +1,92 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import EditableText from "./EditableText";
 
 export default function Briquettes() {
-  const [activeIdx, setActiveIdx] = useState(0);
-
-  const channels = [
-    {
-      title: "Organismes de formation",
-      subtitle: "Sous-traitance & sessions clés en main",
-      desc: "Conception et animation pédagogique de sessions de formation complètes, rigoureusement mappées sur vos référentiels de certification (Qualiopi, RNCP, RS).",
-      tag: "Partenariat OF",
-    },
-    {
-      title: "Entreprises & Équipes",
-      subtitle: "Formations terrain finançables OPCO",
-      desc: "Des modules sur mesure pensés pour générer un retour sur investissement direct et mesurable sur le terrain : montée en compétences IA, relation commerciale et leadership.",
-      tag: "Prise en charge OPCO",
-    },
-    {
-      title: "Insertion & Secteur IAE",
-      subtitle: "Valorisation des publics en transition",
-      desc: "Parcours adaptés pour les publics éloignés de l'emploi : travail approfondi sur la posture professionnelle, le savoir-être, la confiance et la réinsertion durable.",
-      tag: "Impact social",
-    },
-  ];
-
-  const activeChannel = channels[activeIdx];
-
   return (
-    <section id="canaux" className="bg-[#FAF8F4] py-24 sm:py-32 border-b border-neutral-200/80 text-[#1A1A1A]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Split-screen container matching image.png (White Theme) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xl bg-white">
-          
-          {/* Left Column: Header & Accordion List */}
-          <div className="lg:col-span-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-neutral-200/80">
-            
-            {/* Top Title Block */}
-            <div className="p-8 sm:p-12 border-b border-neutral-200/80 bg-white">
-              <EditableText
-                as="h2"
-                className="text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A] block"
-                style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-                initialText="Clic&Progress"
-              />
-              <EditableText
-                as="p"
-                className="text-2xl sm:text-3xl md:text-4xl font-normal text-neutral-400 mt-1 block"
-                style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-                initialText="Publics & Solutions"
-              />
-            </div>
+    <section id="publics" className="py-24 bg-white text-[#17140F]">
+      <div className="max-w-[1100px] mx-auto px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center mb-14 sm:mb-20">
+        <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold mb-4 text-center mx-auto w-full text-[#FF6500]">
+          <EditableText initialText="POUR QUI" />
+        </p>
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.15] text-center mx-auto w-full text-[#1A1A1A]" style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}>
+          <EditableText initialText="À qui s'adressent" />{" "}
+          <span className="italic font-serif font-normal inline-block text-[#FF6500]">
+            <EditableText initialText="les formations" />
+          </span>
+        </h2>
+        <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto mt-5 font-sans font-normal leading-relaxed text-center w-full text-[#666660]">
+          <EditableText
+            multiline
+            initialText="Que vous soyez un organisme de formation, une entreprise ou une structure d'accompagnement, la méthode reste la même : partir de votre réalité, pas d'un programme standard."
+          />
+        </p>
+      </div>
 
-            {/* Accordion List */}
-            <div className="flex-1 flex flex-col justify-center">
-              {channels.map((ch, idx) => {
-                const isActive = activeIdx === idx;
-                return (
-                  <div
-                    key={idx}
-                    onClick={() => setActiveIdx(idx)}
-                    className={`flex items-center justify-between p-8 sm:px-12 py-8 border-b border-neutral-100 last:border-b-0 cursor-pointer transition-all ${
-                      isActive
-                        ? "bg-[#FAF8F4] border-r-4 border-r-[#FF6500]"
-                        : "hover:bg-neutral-50"
-                    }`}
-                  >
-                    <span
-                      className={`text-2xl sm:text-3xl font-normal transition-colors ${
-                        isActive ? "text-[#1A1A1A] font-medium" : "text-neutral-400 hover:text-neutral-700"
-                      }`}
-                    >
-                      <EditableText initialText={ch.title} />
-                    </span>
-                    <span
-                      className={`text-2xl font-light transition-colors ${
-                        isActive ? "text-[#FF6500]" : "text-neutral-300"
-                      }`}
-                    >
-                      {isActive ? "✕" : "+"}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right Column: Visual Preview & Detail Text (Flush Ceiling) */}
-          <div className="lg:col-span-6 relative flex flex-col justify-end min-h-[460px] lg:min-h-full p-8 sm:p-14 overflow-hidden bg-[#FAF8F4]">
-            {/* Ambient Light Texture Background */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div
-                className="absolute inset-0 transition-opacity duration-700"
-                style={{
-                  background:
-                    "radial-gradient(circle at 70% 30%, rgba(255,101,0,0.08) 0%, transparent 65%)",
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F4] via-[#FAF8F4]/40 to-transparent z-10" />
-            </div>
-
-            {/* Content Display */}
-            <div className="relative z-20 max-w-xl">
-              <span className="inline-block font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#FF6500] mb-4">
-                <EditableText initialText={activeChannel.tag} />
-              </span>
-              <EditableText
-                as="h3"
-                className="text-2xl sm:text-4xl font-bold text-[#1A1A1A] mb-5 leading-tight block"
-                style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
-                initialText={activeChannel.subtitle}
-              />
-              <EditableText
-                as="p"
-                multiline
-                className="text-base sm:text-lg text-[#666660] font-sans leading-relaxed mb-8 block"
-                initialText={activeChannel.desc}
-              />
-
-              <Link
-                href="#contact"
-                className="group inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-widest transition-all shadow-[0_4px_20px_rgba(255,101,0,0.2)] hover:shadow-[0_6px_28px_rgba(255,101,0,0.4)]"
-              >
-                <EditableText initialText="Échanger sur ce format" />
-                <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform text-sm">→</span>
-              </Link>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Reassurance Banner */}
-        <div className="mt-16 rounded-3xl bg-[#1A1A1A] text-white p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="border border-[#17140F]/10 rounded-[10px] p-[30px_28px] transition-colors duration-150 hover:border-[#FF6500]">
             <EditableText
               as="h3"
-              className="text-2xl font-bold font-display mb-2 block"
-              initialText="Un projet spécifique ou un cahier des charges ?"
+              className="font-display text-[18px] font-medium text-[#17140F] mb-3 block"
+              initialText="Organismes de formation"
             />
             <EditableText
               as="p"
               multiline
-              className="text-sm text-neutral-300 block"
-              initialText="Soufiyan étudie votre demande de formation et vous propose une ingénierie sur mesure sous 48h."
+              className="text-[14.5px] text-[#6E6A62] leading-[1.6] block"
+              initialText="Vous cherchez un formateur fiable en sous-traitance ? Je conçois et j'anime des sessions complètes, mappées sur vos référentiels de certification (Qualiopi, RNCP, RS)."
             />
+          </div>
+
+          {/* Card 2 */}
+          <div className="border border-[#17140F]/10 rounded-[10px] p-[30px_28px] transition-colors duration-150 hover:border-[#FF6500]">
+            <EditableText
+              as="h3"
+              className="font-display text-[18px] font-medium text-[#17140F] mb-3 block"
+              initialText="Entreprises & équipes"
+            />
+            <EditableText
+              as="p"
+              multiline
+              className="text-[14.5px] text-[#6E6A62] leading-[1.6] block"
+              initialText="Vous voulez faire monter vos équipes en compétence sur la vente, le commerce ou l'intelligence artificielle ? On construit ensemble un parcours adapté à votre contexte."
+            />
+          </div>
+
+          {/* Card 3 */}
+          <div className="border border-[#17140F]/10 rounded-[10px] p-[30px_28px] transition-colors duration-150 hover:border-[#FF6500]">
+            <EditableText
+              as="h3"
+              className="font-display text-[18px] font-medium text-[#17140F] mb-3 block"
+              initialText="Structures d'insertion"
+            />
+            <EditableText
+              as="p"
+              multiline
+              className="text-[14.5px] text-[#6E6A62] leading-[1.6] block"
+              initialText="Vous accompagnez des personnes en transition professionnelle ? Mon approche s'adapte à leur rythme, pour redonner confiance autant que compétences."
+            />
+          </div>
+        </div>
+
+        <div className="mt-11 flex flex-col md:flex-row md:items-center justify-between border-t border-[#17140F]/10 pt-8 gap-4">
+          <div className="text-[15px] text-[#6E6A62] max-w-[44ch]">
+            <b className="font-semibold text-[#17140F]">
+              <EditableText initialText="Un projet spécifique ou un cahier des charges ?" />
+            </b>{" "}
+            <EditableText initialText="J'étudie votre demande et vous propose une ingénierie sur mesure sous 48h." />
           </div>
           <Link
             href="#contact"
-            className="flex-shrink-0 px-8 py-4 rounded-full bg-[#FF6500] hover:bg-[#FF7A1F] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-lg"
+            className="bg-[#FF6500] text-white px-6 py-[13px] rounded-[6px] text-[14.5px] font-semibold inline-block whitespace-nowrap hover:bg-[#FF7A1F] transition-colors"
           >
-            <EditableText initialText="Contacter Soufiyan" />
+            <EditableText initialText="Réserver un échange" />
           </Link>
         </div>
-
       </div>
     </section>
   );

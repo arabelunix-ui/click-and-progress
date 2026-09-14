@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clic&Progress — Section "Pour qui"</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17140F;
+    --paper:#FFFFFF;
+    --cream:#F7F2EA;
+    --orange:#FF6500;
+    --stone:#6E6A62;
+    --line: rgba(23,20,15,0.10);
+    --maxw: 1100px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+  .note-banner{
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    padding:12px 32px;
+    font-size:13px;
+    color:var(--stone);
+    text-align:center;
+  }
+  .note-banner strong{color:var(--ink);}
+
+  section{padding:88px 0;}
+  .section-head{
+    max-width:600px; margin-bottom:44px;
+  }
+  .kicker{
+    font-size:13.5px; font-weight:600; color:var(--orange); margin-bottom:10px;
+  }
+  .section-head h2{font-size:32px; line-height:1.2;}
+  .section-head p.transition{
+    margin-top:16px; color:var(--stone); font-size:16px; line-height:1.6;
+    max-width:56ch;
+  }
+
+  .publics-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+  }
+  .public-card{
+    border:1px solid var(--line); border-radius:10px; padding:30px 28px;
+    transition: border-color .15s;
+  }
+  .public-card:hover{border-color: var(--orange);}
+  .public-card h3{font-size:18px; margin-bottom:12px;}
+  .public-card p{font-size:14.5px; color:var(--stone); line-height:1.6;}
+
+  .cta-row{
+    margin-top:44px; display:flex; align-items:center; justify-content:space-between;
+    border-top:1px solid var(--line); padding-top:32px;
+    flex-wrap:wrap; gap:16px;
+  }
+  .cta-row p{font-size:15px; color:var(--stone); max-width:44ch;}
+  .cta-row p b{color:var(--ink);}
+  .btn-primary{
+    background:var(--orange); color:#fff;
+    padding:13px 24px; border-radius:6px;
+    font-size:14.5px; font-weight:600;
+    display:inline-block; white-space:nowrap;
+  }
+
+  @media (max-width: 860px){
+    .publics-grid{grid-template-columns:1fr;}
+    .cta-row{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="note-banner">
+  Section "Pour qui" — <strong>remplace l'accordéon actuel</strong>. Les 3 cartes sont visibles directement, sans clic. Textes encore modifiables, c'est la structure qui compte ici.
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Pour qui</div>
+      <h2>À qui s'adressent les formations</h2>
+      <p class="transition">Que vous soyez un organisme de formation, une entreprise ou une structure d'accompagnement, la méthode reste la même : partir de votre réalité, pas d'un programme standard.</p>
+    </div>
+
+    <div class="publics-grid">
+      <div class="public-card">
+        <h3>Organismes de formation</h3>
+        <p>Vous cherchez un formateur fiable en sous-traitance ? Je conçois et j'anime des sessions complètes, mappées sur vos référentiels de certification (Qualiopi, RNCP, RS).</p>
+      </div>
+      <div class="public-card">
+        <h3>Entreprises & équipes</h3>
+        <p>Vous voulez faire monter vos équipes en compétence sur la vente, le commerce ou l'intelligence artificielle ? On construit ensemble un parcours adapté à votre contexte.</p>
+      </div>
+      <div class="public-card">
+        <h3>Structures d'insertion</h3>
+        <p>Vous accompagnez des personnes en transition professionnelle ? Mon approche s'adapte à leur rythme, pour redonner confiance autant que compétences.</p>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <p><b>Un projet spécifique ou un cahier des charges ?</b> J'étudie votre demande et vous propose une ingénierie sur mesure sous 48h.</p>
+      <a href="#contact" class="btn-primary">Réserver un échange</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

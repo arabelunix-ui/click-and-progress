@@ -73,10 +73,10 @@ export default function Footer() {
                 </svg>
               </div>
               <a
-                href="mailto:contact@clicandprogress.fr"
+                href="mailto:clicprogress@gmail.com"
                 className="text-[#FF6500] hover:text-[#FF7A1F] font-semibold text-sm transition-colors"
               >
-                contact@clicandprogress.fr
+                clicprogress@gmail.com
               </a>
             </div>
           </div>
