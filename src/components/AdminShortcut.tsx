@@ -7,28 +7,18 @@ export default function AdminShortcut() {
   const router = useRouter();
 
   useEffect(() => {
-    const keys = new Set<string>();
-
     const handleKeyDown = (e: KeyboardEvent) => {
-      keys.add(e.key.toLowerCase());
-      
-      // Check for Ctrl + A + D
-      if (e.ctrlKey && keys.has('a') && keys.has('d')) {
+      // Check for Ctrl + Shift + K
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         router.push('/admin');
       }
     };
 
-    const handleKeyUp = (e: KeyboardEvent) => {
-      keys.delete(e.key.toLowerCase());
-    };
-
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
     };
   }, [router]);
 
