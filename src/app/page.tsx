@@ -29,8 +29,8 @@ export default function Home() {
         <LandingSection />
 
         
-        {/* 3. Three feature bullets */}
-        <FeaturesStrip />
+        {/* 3. Three feature bullets
+        <FeaturesStrip /> */}
 
         {/* 3b. Landing / hero section with CTA and portrait */}
         

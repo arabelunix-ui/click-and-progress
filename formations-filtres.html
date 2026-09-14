@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clic&Progress — Formations, avec filtres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17140F;
+    --paper:#FFFFFF;
+    --cream:#F7F2EA;
+    --orange:#FF6500;
+    --stone:#6E6A62;
+    --line: rgba(23,20,15,0.10);
+    --maxw: 1100px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+  .note-banner{
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    padding:12px 32px;
+    font-size:13px;
+    color:var(--stone);
+    text-align:center;
+  }
+  .note-banner strong{color:var(--ink);}
+
+  section{padding:80px 0;}
+  .section-head{max-width:600px; margin-bottom:36px;}
+  .kicker{font-size:13.5px; font-weight:600; color:var(--orange); margin-bottom:10px;}
+  .section-head h2{font-size:32px; line-height:1.2;}
+  .section-head p{margin-top:14px; color:var(--stone); font-size:15.5px;}
+
+  /* filters */
+  .filters{
+    display:flex; gap:10px; flex-wrap:wrap;
+    margin-bottom:36px; border-bottom:1px solid var(--line); padding-bottom:28px;
+  }
+  .filter-btn{
+    font-family:'Inter', sans-serif; font-size:14px; font-weight:600;
+    padding:10px 18px; border-radius:20px;
+    border:1px solid var(--line); background:#fff; color:var(--stone);
+    cursor:pointer; transition: all .15s;
+  }
+  .filter-btn:hover{border-color:var(--orange); color:var(--ink);}
+  .filter-btn.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  /* grid */
+  .formations-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+  }
+  .formation-item{
+    display:flex; align-items:center; gap:16px;
+    border:1px solid var(--line); border-radius:8px;
+    padding:16px 20px;
+    transition: border-color .15s;
+    animation: fadein .3s ease;
+  }
+  .formation-item:hover{border-color:var(--orange);}
+  .formation-item .badge{
+    background:var(--ink); color:#fff;
+    font-family:'Fraunces', serif; font-weight:600; font-size:14px;
+    padding:6px 12px; border-radius:5px; flex-shrink:0;
+  }
+  .formation-item .label{font-size:15px; font-weight:500;}
+  .formation-item .sublabel{font-size:12.5px; color:var(--stone); margin-top:2px;}
+
+  @keyframes fadein{
+    from{opacity:0; transform:translateY(4px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .hidden{display:none;}
+
+  @media (max-width: 700px){
+    .formations-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="note-banner">
+  Maquette de la page "Formations" — <strong>filtres cliquables</strong> à la place de la carte interactive au survol (qui ne fonctionne pas sur mobile). Contenu à valider, c'est le mécanisme qui compte ici.
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">— Formations déjà animées</div>
+      <h2>Quatre domaines, une même approche</h2>
+      <p>Filtrez par domaine pour voir les formations animées dans chaque catégorie.</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+      <button class="filter-btn" data-filter="commerce">Commerce & Vente</button>
+      <button class="filter-btn" data-filter="insertion">Insertion & Accompagnement</button>
+      <button class="filter-btn" data-filter="numerique">Numérique & Bureautique</button>
+      <button class="filter-btn" data-filter="formateurs">Formation de formateurs</button>
+    </div>
+
+    <div class="formations-grid" id="grid">
+
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N3</div>
+        <div><div class="label">TP Employé Commercial</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N3</div>
+        <div><div class="label">TP Conseiller de Vente</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N4</div>
+        <div><div class="label">TP Assistant Manager d'Unité Marchande</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N5</div>
+        <div><div class="label">TP Manager d'Unité Marchande</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N4</div>
+        <div><div class="label">TP Conseiller Commercial</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N5</div>
+        <div><div class="label">TP Négociateur Technico-Commercial</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N6</div>
+        <div><div class="label">Bachelor Management & Gestion des Entreprises</div></div>
+      </div>
+      <div class="formation-item" data-cat="commerce">
+        <div class="badge">N6</div>
+        <div><div class="label">Bachelor Responsable du Développement Commercial</div></div>
+      </div>
+
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">—</div>
+        <div><div class="label">Techniques de recherche d'emploi</div><div class="sublabel">Préparation aux entretiens d'embauche</div></div>
+      </div>
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">—</div>
+        <div><div class="label">Formation en insertion professionnelle</div></div>
+      </div>
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">—</div>
+        <div><div class="label">Accompagnement vers l'emploi ou la formation</div></div>
+      </div>
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">—</div>
+        <div><div class="label">Développement des compétences professionnelles</div></div>
+      </div>
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">—</div>
+        <div><div class="label">Savoir-être professionnel</div></div>
+      </div>
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">—</div>
+        <div><div class="label">Construction de projet professionnel</div></div>
+      </div>
+      <div class="formation-item" data-cat="insertion">
+        <div class="badge">CléA</div>
+        <div><div class="label">Préparation à la certification CléA</div></div>
+      </div>
+
+      <div class="formation-item" data-cat="numerique">
+        <div class="badge">—</div>
+        <div><div class="label">Découverte informatique</div></div>
+      </div>
+      <div class="formation-item" data-cat="numerique">
+        <div class="badge">—</div>
+        <div><div class="label">Suite Office, du débutant à l'expert</div></div>
+      </div>
+      <div class="formation-item" data-cat="numerique">
+        <div class="badge">—</div>
+        <div><div class="label">Outils numériques au quotidien</div></div>
+      </div>
+
+      <div class="formation-item" data-cat="formateurs">
+        <div class="badge">—</div>
+        <div><div class="label">Formateur Professionnel d'Adultes</div></div>
+      </div>
+      <div class="formation-item" data-cat="formateurs">
+        <div class="badge">—</div>
+        <div><div class="label">Créer des formations dynamiques</div></div>
+      </div>
+      <div class="formation-item" data-cat="formateurs">
+        <div class="badge">—</div>
+        <div><div class="label">Outils numériques pour formateurs</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.formation-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      items.forEach(item => {
+        if(filter === 'all' || item.dataset.cat === filter){
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
