@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import LogoApp from "./LogoApp";
+
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -101,16 +103,7 @@ export default function Navbar() {
 
           {/* CENTER LOGO */}
           <div className="flex items-center justify-center flex-1 lg:flex-none lg:w-auto px-6 lg:px-10 py-2">
-            <Link href={getHref("/")} className="group flex items-center">
-              <Image
-                src="/images/ClickandProgressLogo.png"
-                alt="Clic & Progress"
-                width={180}
-                height={48}
-                className="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-105"
-                priority
-              />
-            </Link>
+            <LogoApp href={getHref("/")} />
           </div>
 
           {/* RIGHT NAV LINKS */}

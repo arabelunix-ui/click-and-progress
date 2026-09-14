@@ -1,40 +1,30 @@
 import { NextResponse } from "next/server";
-import { put, list } from "@vercel/blob";
+import { createClient } from "@/utils/supabase/server";
 
 export const dynamic = 'force-dynamic';
 
-async function getRemoteData() {
-  try {
-    const { blobs } = await list({ prefix: "content-" });
-    if (blobs.length > 0) {
-      // Sort by uploadedAt descending
-      blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime());
-      const latestBlob = blobs[0];
-      const response = await fetch(`${latestBlob.url}?t=${Date.now()}`, { cache: "no-store" });
-      return await response.json();
-    }
-  } catch (e) {
-    console.error("Error reading from Vercel Blob:", e);
-  }
-  return {};
-}
-
-async function saveRemoteData(data: any) {
-  const timestamp = Date.now();
-  const filename = `content-${timestamp}.json`;
-  
-  // Upload the new file
-  await put(filename, JSON.stringify(data, null, 2), { 
-    access: "public", 
-    addRandomSuffix: false 
-  });
-}
-
 export async function GET() {
   try {
-    const data = await getRemoteData();
-    return NextResponse.json(data);
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('site_content')
+      .select('key, value');
+
+    if (error) {
+      console.error("Supabase Error:", error.message);
+      throw error;
+    }
+
+    const contentMap: Record<string, string> = {};
+    if (data) {
+      data.forEach(item => {
+        contentMap[item.key] = item.value;
+      });
+    }
+
+    return NextResponse.json(contentMap);
   } catch (error) {
+    console.error("Error reading from Supabase:", error);
     return NextResponse.json({}, { status: 500 });
   }
 }
@@ -47,13 +37,28 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Key is required" }, { status: 400 });
     }
 
-    const data = await getRemoteData();
-    data[key] = value;
-    await saveRemoteData(data);
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from('site_content')
+      .upsert({ key, value }, { onConflict: 'key' });
 
-    return NextResponse.json({ success: true, data });
+    if (error) {
+      console.error("Supabase Error:", error.message);
+      throw error;
+    }
+
+    // Retourner les données mises à jour
+    const { data: allData } = await supabase.from('site_content').select('key, value');
+    const contentMap: Record<string, string> = {};
+    if (allData) {
+      allData.forEach(item => {
+        contentMap[item.key] = item.value;
+      });
+    }
+
+    return NextResponse.json({ success: true, data: contentMap });
   } catch (error) {
-    console.error("Failed to update content:", error);
+    console.error("Failed to update content in Supabase:", error);
     return NextResponse.json({ error: "Failed to update content" }, { status: 500 });
   }
 }
@@ -66,13 +71,29 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Key is required" }, { status: 400 });
     }
 
-    const data = await getRemoteData();
-    delete data[key];
-    await saveRemoteData(data);
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from('site_content')
+      .delete()
+      .eq('key', key);
 
-    return NextResponse.json({ success: true, data });
+    if (error) {
+      console.error("Supabase Error:", error.message);
+      throw error;
+    }
+
+    // Retourner les données restantes
+    const { data: allData } = await supabase.from('site_content').select('key, value');
+    const contentMap: Record<string, string> = {};
+    if (allData) {
+      allData.forEach(item => {
+        contentMap[item.key] = item.value;
+      });
+    }
+
+    return NextResponse.json({ success: true, data: contentMap });
   } catch (error) {
-    console.error("Failed to delete content:", error);
+    console.error("Failed to delete content from Supabase:", error);
     return NextResponse.json({ error: "Failed to delete content" }, { status: 500 });
   }
 }

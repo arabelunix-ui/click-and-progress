@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import "./globals.css";
+import AdminShortcut from "@/components/AdminShortcut";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -51,6 +52,7 @@ export default function RootLayout({
       className={`${inter.variable} ${fraunces.variable}`}
     >
       <body className="min-h-screen bg-[#FFFFFF] text-[#1A1A1A] antialiased selection:bg-[#FF6500] selection:text-white">
+        <AdminShortcut />
         {children}
       </body>
     </html>

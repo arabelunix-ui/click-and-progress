@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import LogoApp from "./LogoApp";
 
 // Reusable SVG component rendering the EXACT stepped contour curves pixel-for-pixel from image.png
 function BackgroundContourLines() {
@@ -92,14 +93,7 @@ export default function LoadingScreen() {
         }`}
       >
         <div className="flex flex-col items-center animate-fade-in p-6 text-center">
-          <Image
-            src="/images/ClickandProgressLogo.png"
-            alt="Clic & Progress"
-            width={340}
-            height={90}
-            className="w-64 md:w-80 h-auto object-contain mb-4"
-            priority
-          />
+          <LogoApp className="mb-6 justify-center scale-150 origin-center" />
           <span
             className="text-sm md:text-base font-semibold tracking-wide text-[#1A1A1A]"
             style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}

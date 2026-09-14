@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import LogoApp from "./LogoApp";
 
 export default function Footer() {
   return (
@@ -14,15 +15,7 @@ export default function Footer() {
 
           {/* ── Colonne 1 : Logo + liens nav ── */}
           <div>
-            <Link href="/" className="inline-block mb-7">
-              <Image
-                src="/images/ClickandProgressLogo.png"
-                alt="Clic & Progress"
-                width={180}
-                height={48}
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
+            <LogoApp className="mb-7" />
             <nav className="flex flex-wrap gap-x-2 gap-y-1 text-sm font-semibold text-white/80">
               {[
                 { label: "À propos", href: "/about" },
