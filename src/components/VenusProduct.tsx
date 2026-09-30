@@ -11,7 +11,7 @@ const STEPS = [
     title: "On part de vos situations réelles",
     description:
       "Chaque session s’appuie sur des cas concrets issus de votre quotidien professionnel, et non sur des exemples génériques déconnectés du terrain.",
-    image: "/methods/methode-equipe.png",
+    image: "/methods/methode-equipe.jpeg",
     imageAlt: "Méthode équipe - situations réelles",
   },
   {
@@ -19,7 +19,7 @@ const STEPS = [
     title: "On pratique tout de suite",
     description:
       "Chaque notion est mise en application immédiatement, à travers des exercices, des échanges ou des ateliers, pour ancrer les apprentissages durablement.",
-    image: "/methods/methode-tableau.png",
+    image: "/methods/methode-tableau.jpeg",
     imageAlt: "Méthode tableau - pratique en atelier",
   },
   {
@@ -27,7 +27,7 @@ const STEPS = [
     title: "On mesure les progrès",
     description:
       "Un suivi personnalisé permet d’ajuster le rythme, de valoriser chaque étape franchie et de consolider les compétences dans la durée.",
-    image: "/methods/methode-suivi.png",
+    image: "/methods/methode-suivi.jpeg",
     imageAlt: "Méthode suivi - mesure des progrès",
   },
 ];

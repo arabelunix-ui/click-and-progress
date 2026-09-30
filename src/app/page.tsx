@@ -45,11 +45,11 @@ export default function Home() {
           {/* 6. Briquette output section */}
           <Briquettes />
 
-          {/* 7. Mission statement (light background) */}
+          {/* 7. Mission statement (light background)
           <MissionStatement />
 
           {/* 7b. YouTube Video section */}
-          
+           
 
 
           {/* 2b. Ils m'ont fait confiance — Grille de logos architecturale */}
