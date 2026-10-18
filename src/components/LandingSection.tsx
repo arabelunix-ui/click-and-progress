@@ -150,9 +150,9 @@ export default function LandingSection() {
 
         /* Headline */
         .landing-headline {
-          font-family: var(--font-sans);
-          font-size: clamp(2.5rem, 5.5vw, 4rem);
-          font-weight: 900;
+          font-family: var(--font-display);
+          font-size: clamp(2rem, 4vw + 1rem, 4rem);
+          font-weight: 600;
           line-height: 1.08;
           color: var(--text-primary);
           letter-spacing: -0.02em;
@@ -301,8 +301,9 @@ export default function LandingSection() {
         }
 
         .landing-stat__number {
+          font-family: var(--font-display);
           font-size: clamp(1.5rem, 2.8vw, 2rem);
-          font-weight: 900;
+          font-weight: 600;
           color: var(--text-primary);
           line-height: 1;
           font-variant-numeric: tabular-nums;
@@ -508,18 +509,18 @@ export default function LandingSection() {
             {/* Eyebrow badge */}
             <span className="landing-badge">
               <span className="landing-badge__star" aria-hidden="true">✦</span>
-              <EditableText initialText="Formations en ligne" />
+              <EditableText initialText="Présentiel & distanciel" />
             </span>
 
             {/* Headline */}
-            <h2 className="landing-headline" id="landing-headline">
+            <h1 className="landing-headline" id="landing-headline">
               <EditableText initialText="Apprendre, ça doit" />
               <br />
-              <EditableText initialText="donner " />
+              <EditableText initialText="donner" />{" "}
               <span className="landing-headline__accent">
-                <EditableText initialText="ENVIE." />
+                <EditableText initialText="envie." />
               </span>
-            </h2>
+            </h1>
 
             {/* Description */}
             <EditableText 
@@ -531,14 +532,14 @@ export default function LandingSection() {
 
             {/* CTA buttons */}
             <div className="landing-cta">
-              <Link href="#formations" className="landing-cta__primary">
-                <EditableText initialText="Découvre les formations" />
+              <Link href="/formations" className="landing-cta__primary">
+                <EditableText initialText="Découvrir les formations" />
               </Link>
-              <Link href="#echange" className="landing-cta__secondary">
-                <EditableText initialText="Réserve ton échange" />
+              <Link href="#contact" className="landing-cta__secondary">
+                <EditableText initialText="Réserver un échange" />
               </Link>
               <span className="landing-cta__caption">
-                <EditableText initialText="20 minutes, gratuites, pour cadrer ton besoin ensemble — sans engagement." />
+                <EditableText initialText="20 minutes offertes pour cadrer votre besoin ensemble, sans engagement." />
               </span>
             </div>
 

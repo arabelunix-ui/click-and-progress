@@ -4,11 +4,20 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+/*
+ * Contenu de la FAQ.
+ * Pour modifier une réponse : changer le texte ci-dessous.
+ * - Un paragraphe = une chaîne de caractères.
+ * - Une liste à puces = un tableau de chaînes.
+ * - **texte** = texte en gras.
+ */
+type Block = string | string[];
+
 export interface FaqItem {
   id: string;
-  category: "Pédagogie & Méthode" | "Financements & OPCO" | "Organisation & Logistique" | "Sous-traitance OF";
+  category: "Pédagogie & Méthode" | "Tarifs & Financement" | "Organisation" | "Organismes de formation";
   question: string;
-  answer: string | React.ReactNode;
+  answer: Block[];
   tag?: string;
 }
 
@@ -17,136 +26,200 @@ const FAQ_DATA: FaqItem[] = [
   {
     id: "pedagogie-deroulement",
     category: "Pédagogie & Méthode",
-    question: "Comment se déroule concrètement une session de formation Clic&Progress ?",
-    tag: "Ludopédagogie active",
-    answer: (
-      <div className="space-y-3.5">
-        <p>
-          Finis les cours magistraux de 7 heures avec 150 slides PowerPoint. Chez Clic&amp;Progress, nous appliquons une pédagogie 100% active et vivante : <strong className="text-[#1A1A1A]">80% d&apos;ateliers pratiques et 20% d&apos;apports théoriques ciblés</strong>.
-        </p>
-        <p>
-          Chaque notion est immédiatement testée sur le terrain. Vous travaillez directement sur vos propres documents, vos vrais cas clients et vos défis professionnels actuels pour ancrer des réflexes que vous utiliserez dès le lendemain matin.
-        </p>
-      </div>
-    ),
+    question: "Comment se passe concrètement une formation avec vous ?",
+    tag: "Pédagogie active",
+    answer: [
+      "Pas de journée entière à écouter quelqu'un lire des slides. Dans mes formations, **la plus grande partie du temps est consacrée à la pratique** : mises en situation, jeux de rôle, ateliers, cas concrets. La théorie arrive au moment où elle sert.",
+      "On travaille sur vos situations réelles : vos clients, vos objections, vos outils. L'objectif est simple, que ce que vous apprenez serve dès le lendemain.",
+    ],
   },
   {
     id: "pedagogie-publics",
     category: "Pédagogie & Méthode",
-    question: "À qui s'adressent vos formations et vos parcours d'accompagnement ?",
-    tag: "Sur-mesure",
-    answer: (
-      <div className="space-y-3.5">
-        <p>Nous intervenons principalement auprès de trois grands publics :</p>
-        <ul className="list-disc pl-5 space-y-2 text-[15px] text-[#1A1A1A]/80">
-          <li><strong className="text-[#1A1A1A]">Les équipes opérationnelles en entreprise (PME &amp; grands comptes) :</strong> pour accélérer leur productivité (IA générative), renforcer leurs techniques de vente ou développer leur leadership.</li>
-          <li><strong className="text-[#1A1A1A]">Les Organismes de Formation (OF) :</strong> qui recherchent un formateur expert pour animer des parcours certifiants (Qualiopi, RNCP, RS) en sous-traitance ou en marque blanche.</li>
-          <li><strong className="text-[#1A1A1A]">Les professionnels en reconversion ou transition de carrière :</strong> accompagnement individuel ou en groupe pour surmonter les blocages et réussir sa transformation.</li>
-        </ul>
-      </div>
-    ),
+    question: "À qui s'adressent vos formations ?",
+    tag: "Sur mesure",
+    answer: [
+      "J'interviens auprès de quatre types de publics :",
+      [
+        "**Les entreprises et leurs équipes** : vente, relation client, management de proximité, intelligence artificielle au quotidien.",
+        "**Les organismes de formation** : j'anime des parcours certifiants en sous-traitance (titres professionnels du commerce, BTS).",
+        "**Les structures d'insertion et d'accompagnement** : recherche d'emploi, préparation aux entretiens, savoir-être professionnel, CléA.",
+        "**Les personnes en reconversion** : pour reprendre confiance et construire un projet professionnel solide.",
+      ],
+    ],
   },
   {
     id: "pedagogie-ia-technique",
     category: "Pédagogie & Méthode",
-    question: "Faut-il un niveau technique préalable pour suivre les modules IA Générative ?",
+    question: "Faut-il un niveau technique pour suivre les modules sur l'IA ?",
     tag: "Zéro prérequis",
-    answer: (
-      <p>
-        <strong className="text-[#1A1A1A]">Aucun prérequis technique ou bagage informatique n&apos;est nécessaire !</strong> Nos modules d&apos;IA générative (ChatGPT, Claude, outils d&apos;automatisation) sont conçus pour être accessibles à tous sans aucune ligne de code. Nous vous apprenons l&apos;art de formuler des requêtes claires (prompting) et d&apos;intégrer ces assistants dans vos tâches quotidiennes (rédaction de rapports, synthèse de réunions, relation client) pour faire gagner jusqu&apos;à 5 heures par semaine à votre équipe.
-      </p>
-    ),
+    answer: [
+      "**Non, aucun.** Les modules sur l'IA générative (ChatGPT, Claude, etc.) sont pensés pour des personnes qui n'ont jamais codé. On apprend à formuler des demandes claires et à utiliser ces outils dans les tâches de tous les jours : rédiger un mail, préparer un rendez-vous, synthétiser une réunion, répondre à un client.",
+    ],
+  },
+  {
+    id: "pedagogie-evaluation",
+    category: "Pédagogie & Méthode",
+    question: "Comment mesurez-vous les progrès des participants ?",
+    tag: "Suivi",
+    answer: [
+      "Chaque formation commence par un **positionnement** (où en est chacun ?) et se termine par une **évaluation des acquis**, le plus souvent en situation pratique plutôt qu'en QCM.",
+      "Vous recevez aussi un bilan de satisfaction. Pour les parcours longs, je fais des points d'étape pour ajuster le rythme et le contenu.",
+    ],
   },
 
-  // ── Financements & OPCO ──
+  // ── Tarifs & Financement ──
+  {
+    id: "tarifs",
+    category: "Tarifs & Financement",
+    question: "Combien coûte une formation ?",
+    tag: "Devis gratuit",
+    answer: [
+      "Chaque formation est construite pour votre contexte, donc **le tarif est établi sur devis**. Il dépend surtout de la durée, du nombre de participants, du format (présentiel ou à distance) et du travail de conception sur mesure.",
+      "Le premier échange de 20 minutes est offert et sans engagement. Je vous envoie ensuite un devis détaillé sous 48h.",
+    ],
+  },
   {
     id: "financement-opco",
-    category: "Financements & OPCO",
-    question: "Vos formations sont-elles éligibles à une prise en charge par mon OPCO ?",
-    tag: "Finançable OPCO",
-    answer: (
-      <div className="space-y-3.5">
-        <p>
-          Oui, absolument. En tant que formateur indépendant intervenant dans un cadre réglementaire rigoureux (et via des partenariats étroits avec des organismes certifiés Qualiopi), nos actions de développement des compétences pour les salariés sont <strong className="text-[#1A1A1A]">finançables par votre OPCO de rattachement</strong> (Atlas, AKTO, OPCO EP, AFDAS, etc.).
-        </p>
-        <p>
-          Nous veillons à ce que chaque programme pédagogique respecte scrupuleusement les critères d&apos;éligibilité, d&apos;évaluation et de traçabilité requis par les financeurs.
-        </p>
-      </div>
-    ),
+    category: "Tarifs & Financement",
+    question: "Ma formation peut-elle être financée par mon OPCO ?",
+    tag: "Financement",
+    answer: [
+      "C'est souvent possible, mais **cela dépend du montage**. Pour qu'un OPCO prenne en charge une formation, elle doit en général être portée par un organisme certifié Qualiopi.",
+      "Selon votre projet, je peux intervenir via un organisme de formation partenaire certifié, qui porte alors la convention et le dossier de financement. Lors de notre premier échange, on regarde ensemble la solution la plus simple pour vous : prise en charge OPCO, plan de développement des compétences ou financement direct par l'entreprise.",
+    ],
   },
   {
     id: "financement-demarche",
-    category: "Financements & OPCO",
-    question: "Quelle est la démarche à suivre pour monter le dossier de prise en charge OPCO ?",
-    tag: "Accompagnement administratif",
-    answer: (
-      <p>
-        Dès notre premier échange d&apos;analyse de vos besoins, nous vous fournissons un dossier administratif complet comprenant : <strong className="text-[#1A1A1A]">le devis chiffré, le programme pédagogique détaillé et la convention de formation</strong>. Vous transmettez ensuite ces documents directement à votre conseiller OPCO (généralement 3 à 4 semaines avant le début de l&apos;intervention) pour obtenir l&apos;accord de prise en charge avant le lancement.
-      </p>
-    ),
+    category: "Tarifs & Financement",
+    question: "Quelles démarches pour obtenir une prise en charge ?",
+    tag: "Accompagnement",
+    answer: [
+      "Je vous fournis les documents nécessaires : **devis, programme détaillé avec objectifs et modalités d'évaluation**. Vous les transmettez à votre OPCO avant le début de la formation.",
+      "Comptez idéalement 3 à 4 semaines d'avance, les délais de traitement variant selon les OPCO. Je reste disponible pour répondre à leurs questions si besoin.",
+    ],
   },
 
-  // ── Organisation & Logistique ──
+  // ── Organisation ──
   {
     id: "orga-lieu",
-    category: "Organisation & Logistique",
-    question: "Où se déroulent les formations (présentiel ou visioconférence) ?",
-    tag: "France entière & Visio",
-    answer: (
-      <p>
-        Soufiyan est basé à <strong className="text-[#1A1A1A]">Clermont-Ferrand</strong> et se déplace directement dans vos locaux en Auvergne-Rhône-Alpes et dans toute la France pour les sessions intra-entreprise. Nous animons également des classes virtuelles en <strong className="text-[#1A1A1A]">visioconférence interactive (Zoom / Teams)</strong> avec sous-salles de travail, tableaux blancs dynamiques et ateliers en direct pour une immersion totale à distance, sans perte de dynamisme.
-      </p>
-    ),
+    category: "Organisation",
+    question: "Où se déroulent les formations ?",
+    tag: "Présentiel & visio",
+    answer: [
+      "Je suis basé à **Clermont-Ferrand** et je me déplace dans vos locaux, en Auvergne-Rhône-Alpes comme ailleurs en France.",
+      "J'anime aussi des classes virtuelles (Teams, Zoom) avec des sous-groupes, des tableaux collaboratifs et des mises en situation en direct, pour garder le même rythme qu'en salle.",
+    ],
   },
   {
     id: "orga-duree",
-    category: "Organisation & Logistique",
-    question: "Quelle est la durée moyenne des formats et modules proposés ?",
-    tag: "Formats flexibles",
-    answer: (
-      <div className="space-y-3">
-        <p>Nous concevons des formats souples qui s&apos;adaptent au planning et au rythme de votre activité :</p>
-        <ul className="list-disc pl-5 space-y-2 text-[15px] text-[#1A1A1A]/80">
-          <li><strong className="text-[#1A1A1A]">Ateliers &amp; Masterclasses (3h30 à 7h) :</strong> idéal pour acculturer rapidement une équipe sur un sujet clé (ex : prise en main de l&apos;IA au quotidien).</li>
-          <li><strong className="text-[#1A1A1A]">Formations intensives (2 à 3 jours) :</strong> pour une montée en compétences complète avec mises en situation terrain et jeux de rôles approfondis.</li>
-          <li><strong className="text-[#1A1A1A]">Parcours d&apos;accompagnement dans la durée :</strong> sessions espacées de quelques semaines avec suivi individuel ou co-développement pour ancrer durablement les pratiques.</li>
-        </ul>
-      </div>
-    ),
+    category: "Organisation",
+    question: "Quelle est la durée des formations ?",
+    tag: "Formats souples",
+    answer: [
+      "Le format s'adapte à votre activité :",
+      [
+        "**Atelier (une demi-journée à une journée)** : pour lancer une équipe sur un sujet précis, par exemple l'IA au quotidien.",
+        "**Formation intensive (2 à 3 jours)** : pour une vraie montée en compétences, avec beaucoup de mises en situation.",
+        "**Parcours dans la durée** : des sessions espacées de quelques semaines, avec un suivi entre chaque, pour ancrer les nouvelles pratiques.",
+      ],
+    ],
   },
   {
     id: "orga-sur-mesure",
-    category: "Organisation & Logistique",
-    question: "Peut-on adapter le contenu de formation à notre secteur d'activité ?",
-    tag: "100% Personnalisé",
-    answer: (
-      <p>
-        Le sur-mesure est notre standard pédagogique. Avant chaque intervention en entreprise, nous réalisons un entretien de cadrage (ou une immersion terrain rapide) pour analyser vos outils informatiques, votre vocabulaire métier, vos freins actuels et vos objectifs exacts. Les études de cas, ateliers et simulations sont ensuite conçus spécifiquement pour faire écho à la réalité de vos équipes.
-      </p>
-    ),
+    category: "Organisation",
+    question: "Pouvez-vous adapter le contenu à notre secteur ?",
+    tag: "Sur mesure",
+    answer: [
+      "Oui, c'est même la base. Avant chaque intervention, je prends le temps d'un **entretien de cadrage** pour comprendre votre métier, vos outils, votre vocabulaire et ce qui coince aujourd'hui. Les cas pratiques et jeux de rôle sont ensuite construits à partir de votre réalité.",
+    ],
+  },
+  {
+    id: "orga-handicap",
+    category: "Organisation",
+    question: "La formation est-elle accessible aux personnes en situation de handicap ?",
+    tag: "Accessibilité",
+    answer: [
+      "Oui. Je suis votre interlocuteur direct pour toute question d'accessibilité. Signalez-moi un besoin d'adaptation dès notre premier échange (supports, rythme, pauses, lieu, outils) : je mets en place les aménagements possibles et, si nécessaire, je vous oriente vers les partenaires spécialisés.",
+    ],
+  },
+  {
+    id: "orga-annulation",
+    category: "Organisation",
+    question: "Que se passe-t-il en cas d'annulation ou de report ?",
+    tag: "Conditions",
+    answer: [
+      "Prévenez-moi par écrit le plus tôt possible. Une annulation ou un report demandé **plus de 15 jours avant** la formation est sans frais. Un report reste sans frais jusqu'à 48h avant, sauf frais de déplacement ou de salle déjà engagés.",
+      "Le détail est précisé dans les conditions générales de vente.",
+    ],
   },
 
-  // ── Sous-traitance OF ──
+  // ── Organismes de formation ──
   {
     id: "of-collaboration",
-    category: "Sous-traitance OF",
-    question: "Comment collaborez-vous avec les Organismes de Formation (OF) partenaires ?",
-    tag: "Marque blanche & Qualiopi",
-    answer: (
-      <p>
-        Soufiyan intervient régulièrement en tant que formateur expert ou sous-traitant pour le compte d&apos;organismes de formation reconnus. Nous intervenons en parfaite transparence (<strong className="text-[#1A1A1A]">en marque blanche sous votre nom</strong>) en respectant scrupuleusement votre cahier des charges, les exigences de l&apos;audit <strong className="text-[#1A1A1A]">Qualiopi</strong> (émargements, évaluations des acquis, enquêtes de satisfaction) et le référentiel de vos certifications (RNCP / RS).
-      </p>
-    ),
+    category: "Organismes de formation",
+    question: "Comment travaillez-vous avec les organismes de formation ?",
+    tag: "Sous-traitance",
+    answer: [
+      "J'interviens régulièrement comme formateur sous-traitant pour des organismes de formation. Je respecte votre cahier des charges et vos exigences **Qualiopi** : émargements, évaluations des acquis, enquêtes de satisfaction, traçabilité.",
+      "Je peux prendre en charge l'animation seule, ou aussi la conception des séquences et des supports.",
+    ],
+  },
+  {
+    id: "of-titres",
+    category: "Organismes de formation",
+    question: "Sur quels titres et diplômes intervenez-vous ?",
+    tag: "Certifications",
+    answer: [
+      "Principalement sur les certifications du commerce et de la vente :",
+      [
+        "Titre professionnel **Conseiller de vente**",
+        "Titre professionnel **Employé commercial**",
+        "Titres professionnels **MUM et AMUM** (manager et assistant manager d'unité marchande)",
+        "**BTS MCO (ex-MUM) et BTS NTC**",
+      ],
+      "Je suis titulaire du titre **Formateur professionnel d'adultes** (AFPA, 2020) et j'ai passé une dizaine d'années sur le terrain commercial avant de devenir formateur.",
+    ],
   },
 ];
+
+/** Transforme **texte** en gras */
+function rich(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="text-[#1A1A1A]">{part.slice(2, -2)}</strong>
+    ) : (
+      <React.Fragment key={i}>{part}</React.Fragment>
+    )
+  );
+}
+
+function renderAnswer(blocks: Block[]) {
+  return (
+    <div className="space-y-3.5">
+      {blocks.map((b, i) =>
+        Array.isArray(b) ? (
+          <ul key={i} className="list-disc pl-5 space-y-2 text-[15px] text-[#1A1A1A]/80">
+            {b.map((li, j) => <li key={j}>{rich(li)}</li>)}
+          </ul>
+        ) : (
+          <p key={i}>{rich(b)}</p>
+        )
+      )}
+    </div>
+  );
+}
+
+function plainText(item: FaqItem) {
+  return [item.question, item.tag ?? "", ...item.answer.flat()].join(" ").replace(/\*\*/g, "").toLowerCase();
+}
 
 const CATEGORIES = [
   "Tout",
   "Pédagogie & Méthode",
-  "Financements & OPCO",
-  "Organisation & Logistique",
-  "Sous-traitance OF",
+  "Tarifs & Financement",
+  "Organisation",
+  "Organismes de formation",
 ] as const;
 
 export default function FaqSection() {
@@ -157,10 +230,7 @@ export default function FaqSection() {
   const filteredFaq = FAQ_DATA.filter((item) => {
     const matchCategory = selectedCategory === "Tout" || item.category === selectedCategory;
     const matchSearch =
-      searchQuery.trim() === "" ||
-      item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (typeof item.answer === "string" && item.answer.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (item.tag && item.tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      searchQuery.trim() === "" || plainText(item).includes(searchQuery.trim().toLowerCase());
     return matchCategory && matchSearch;
   });
 
@@ -183,7 +253,7 @@ export default function FaqSection() {
             </div>
             <input
               type="text"
-              placeholder="Rechercher une question (ex: OPCO, visio, IA, tarif, durée...)"
+              placeholder="Rechercher une question (ex : tarif, OPCO, visio, IA, durée…)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-13 pr-24 py-4 sm:py-4.5 bg-[#F9F8F6] text-sm sm:text-base text-[#1A1A1A] placeholder:text-[#1A1A1A]/40 focus:outline-none focus:bg-white transition-colors"
@@ -235,7 +305,7 @@ export default function FaqSection() {
                 href="/#contact"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#FF6500] text-white text-xs font-extrabold uppercase tracking-widest hover:bg-[#FF7A1F] transition-all shadow-md"
               >
-                Poser la question à Soufiyan
+                Me poser la question
               </Link>
             </div>
           ) : (
@@ -306,7 +376,7 @@ export default function FaqSection() {
                       >
                         <div className="px-6 sm:px-8 pb-8 pt-2 text-[15px] sm:text-base text-[#1A1A1A]/80 leading-relaxed border-t border-[#E8E5DF]/60">
                           <div className="bg-white/80 p-5 sm:p-6 rounded-2xl border border-[#E8E5DF]/60 shadow-sm">
-                            {item.answer}
+                            {renderAnswer(item.answer)}
                           </div>
                         </div>
                       </motion.div>
@@ -328,7 +398,7 @@ export default function FaqSection() {
           />
           <div className="relative z-10 max-w-xl mx-auto space-y-5">
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF6500] block">
-              Dialogue direct &amp; sans intermédiaire
+              Un échange direct, sans intermédiaire
             </span>
             <h3
               className="text-2xl sm:text-3xl font-bold text-white tracking-tight"
@@ -337,24 +407,24 @@ export default function FaqSection() {
               Vous ne trouvez pas la réponse que vous cherchez ?
             </h3>
             <p className="text-sm sm:text-base text-white/70 leading-relaxed">
-              Chaque structure a des défis uniques. Écrivez directement à Soufiyan pour échanger sur vos objectifs et obtenir une réponse personnalisée en moins de 48 heures.
+              Chaque projet est différent. Écrivez-moi directement, je vous réponds personnellement sous 48h.
             </p>
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/#contact"
                 className="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-[#FF6500] text-white text-xs font-extrabold uppercase tracking-widest hover:bg-[#FF7A1F] shadow-[0_4px_20px_rgba(255,101,0,0.4)] transition-all scale-100 hover:scale-[1.02]"
               >
-                Échanger avec Soufiyan
+                Me poser votre question
               </Link>
               <a
-                href="mailto:contact@clicandprogress.fr"
+                href="mailto:clicprogress@gmail.com"
                 className="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-white/10 text-white text-xs font-extrabold uppercase tracking-widest hover:bg-white/15 border border-white/15 transition-all scale-100 hover:scale-[1.02]"
               >
                 Envoyer un email
               </a>
             </div>
             <p className="text-[11px] font-mono text-white/40 pt-2">
-              Réponse garantie sous 48h · Formations en Auvergne-Rhône-Alpes &amp; France entière
+              Réponse sous 48h · Clermont-Ferrand, France entière et à distance
             </p>
           </div>
         </div>

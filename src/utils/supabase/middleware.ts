@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { AUTHORIZED_EMAILS } from "./authorized-emails";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -31,11 +32,6 @@ export async function updateSession(request: NextRequest) {
   // Rafraîchir le token d'authentification s'il est expiré
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Liste des adresses emails autorisées (Whitelist)
-  const AUTHORIZED_EMAILS = [
-    'clicprogress@gmail.com',
-    'boudamohamed060@gmail.com', // <-- Ajoutez votre adresse Gmail ici
-  ];
 
   // Protection de la route /admin
   const url = request.nextUrl.clone();

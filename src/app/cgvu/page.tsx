@@ -206,7 +206,7 @@ export default function CgvuPage() {
               </h2>
             </div>
             <p className="text-base text-[#1A1A1A]/80 mb-6">
-              Toute demande d&apos;annulation ou de report doit être formulée par écrit (par email à <span className="font-mono font-bold text-[#FF6500]">contact@clicandprogress.fr</span>). Les conditions applicables sont les suivantes :
+              Toute demande d&apos;annulation ou de report doit être formulée par écrit (par email à <span className="font-mono font-bold text-[#FF6500]">clicprogress@gmail.com</span>). Les conditions applicables sont les suivantes :
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-2xl border border-[#E8E5DF] shadow-sm">
@@ -414,8 +414,8 @@ export default function CgvuPage() {
                   <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-white/45 block mb-1.5">
                     Email officiel
                   </span>
-                  <a href="mailto:contact@clicandprogress.fr" className="text-base font-bold text-[#FF6500] hover:underline block truncate">
-                    contact@clicandprogress.fr
+                  <a href="mailto:clicprogress@gmail.com" className="text-base font-bold text-[#FF6500] hover:underline block truncate">
+                    clicprogress@gmail.com
                   </a>
                 </div>
                 <div className="bg-[#2E2E2E]/80 p-5 rounded-2xl border border-white/10">

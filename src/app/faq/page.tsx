@@ -30,11 +30,11 @@ export default function FaqPage() {
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1A1A1A] tracking-tight mb-6 leading-tight max-w-3xl"
             style={{ fontFamily: "var(--font-display, Fraunces, serif)" }}
           >
-            Foire Aux <span className="text-[#FF6500]">Questions</span>
+            Foire aux <span className="text-[#FF6500]">questions</span>
           </h1>
           <p className="text-base sm:text-lg text-[#1A1A1A]/70 leading-relaxed max-w-2xl mx-auto font-normal">
-            Retrouvez en toute transparence le détail sur notre approche pédagogique 80/20,
-            la prise en charge par votre OPCO, le déroulement des sessions en entreprise ou visio, et notre accompagnement sur-mesure.
+            Déroulement des formations, tarifs, financement, organisation : les réponses
+            aux questions qu&apos;on me pose le plus souvent.
           </p>
         </div>
       </section>

@@ -292,7 +292,7 @@ export default function PresentationPage() {
               
               <div className="text-[11px] lg:text-sm font-semibold space-y-1.5">
                 <p className="text-[#e86a24]">clicandprogress.fr</p>
-                <p>contact@clicandprogress.fr</p>
+                <p>clicprogress@gmail.com</p>
                 <p>Auvergne & à distance</p>
               </div>
             </div>

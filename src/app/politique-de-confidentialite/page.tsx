@@ -98,8 +98,8 @@ export default function PolitiqueConfidentialitePage() {
                 <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-[#1A1A1A]/45 block mb-1">
                   Email DPO &amp; Contact
                 </span>
-                <a href="mailto:contact@clicandprogress.fr" className="text-base font-bold text-[#FF6500] hover:underline block truncate">
-                  contact@clicandprogress.fr
+                <a href="mailto:clicprogress@gmail.com" className="text-base font-bold text-[#FF6500] hover:underline block truncate">
+                  clicprogress@gmail.com
                 </a>
               </div>
             </div>
@@ -289,7 +289,7 @@ export default function PolitiqueConfidentialitePage() {
             </p>
             <ul className="space-y-3 text-base text-[#1A1A1A]/80 list-disc list-inside mb-6">
               <li><strong className="text-[#1A1A1A]">Personnel habilité de Clic&amp;Progress</strong> (Soufiyan et collaborateurs pédagogiques sous clause de confidentialité).</li>
-              <li><strong className="text-[#1A1A1A]">Sous-traitants techniques</strong> (hébergement Vercel Inc., outils de visioconférence et d&apos;évaluation) dans le cadre de contrats strictement conformes au RGPD.</li>
+              <li><strong className="text-[#1A1A1A]">Sous-traitants techniques</strong> (hébergement Vercel Inc., envoi des messages du formulaire de contact via Web3Forms, outils de visioconférence et d&apos;évaluation) dans le cadre de contrats strictement conformes au RGPD.</li>
               <li><strong className="text-[#1A1A1A]">Organismes partenaires &amp; Financeurs OPCO / France Travail</strong> (le cas échéant, avec votre accord dans le cadre de la prise en charge de vos formations).</li>
               <li><strong className="text-[#1A1A1A]">Autorités administratives ou judiciaires</strong> (uniquement sur requête légale ou audit officiel).</li>
             </ul>
@@ -370,10 +370,10 @@ export default function PolitiqueConfidentialitePage() {
                 <p className="text-sm text-white/70">Nous vous répondrons dans un délai maximum de 30 jours (sur présentation d&apos;un justificatif d&apos;identité).</p>
               </div>
               <a
-                href="mailto:contact@clicandprogress.fr?subject=Exercice%20de%20mes%20droits%20RGPD"
+                href="mailto:clicprogress@gmail.com?subject=Exercice%20de%20mes%20droits%20RGPD"
                 className="px-6 py-3 rounded-xl bg-[#FF6500] hover:bg-[#FF7A1F] text-white font-extrabold text-xs uppercase tracking-wider transition-all shrink-0 shadow-md"
               >
-                contact@clicandprogress.fr
+                clicprogress@gmail.com
               </a>
             </div>
           </div>
@@ -424,8 +424,8 @@ export default function PolitiqueConfidentialitePage() {
                     <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-white/45 block mb-1.5">
                       Email officiel DPO
                     </span>
-                    <a href="mailto:contact@clicandprogress.fr" className="text-base font-bold text-[#FF6500] hover:underline block truncate">
-                      contact@clicandprogress.fr
+                    <a href="mailto:clicprogress@gmail.com" className="text-base font-bold text-[#FF6500] hover:underline block truncate">
+                      clicprogress@gmail.com
                     </a>
                   </div>
                   <div className="bg-[#2E2E2E]/80 p-5 rounded-2xl border border-white/10">

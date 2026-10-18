@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
+import { requireAdmin } from "@/utils/supabase/admin";
 
 export const dynamic = 'force-dynamic';
 
@@ -54,6 +55,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const newFormation = await request.json();
     const data = await getRemoteData();
@@ -89,6 +93,9 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { id } = await request.json();
     let data = await getRemoteData();

@@ -159,7 +159,18 @@ export default function LoadingScreen() {
     skipBtn.style.visibility = '';
     document.documentElement.style.overflow = 'hidden';
     
-    requestAnimationFrame(() => sequence());
+    // L'intro ne se joue qu'une fois par visite (pas à chaque retour sur l'accueil)
+    let alreadySeen = false;
+    try {
+      alreadySeen = sessionStorage.getItem('cp-intro-seen') === '1';
+      sessionStorage.setItem('cp-intro-seen', '1');
+    } catch { /* navigation privée : on joue l'intro */ }
+
+    if (alreadySeen) {
+      finish();
+    } else {
+      requestAnimationFrame(() => sequence());
+    }
 
     const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') finish(); };
     
@@ -202,7 +213,7 @@ export default function LoadingScreen() {
   background:#fff;
   display:flex; align-items:center; justify-content:center;
   overflow:hidden;
-  font-family:'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family:var(--font-inter), 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   cursor:pointer;
 }
 .cp-intro[hidden]{display:none}

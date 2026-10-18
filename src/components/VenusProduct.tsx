@@ -75,7 +75,7 @@ export default function VenusProduct() {
             as="p"
             className="mt-8 max-w-[54ch] leading-relaxed text-base sm:text-lg text-white/50"
             multiline
-            initialText="Trop de formations vous placent en spectateur. Chez Click&Progress, notre objectif est simple : provoquer le déclic et vous mettre en action."
+            initialText="Trop de formations vous placent en spectateur. Chez Clic&Progress, notre objectif est simple : provoquer le déclic et vous mettre en action."
           />
         </div>
       </div>
